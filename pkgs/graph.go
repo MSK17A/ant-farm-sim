@@ -2,6 +2,7 @@ package pkgs
 
 import "fmt"
 
+/* Store the edge between one node to node */
 type EdgeNode struct {
 	name string // Name of the edge
 	//x         int       // pos x
@@ -10,6 +11,7 @@ type EdgeNode struct {
 	Next         *EdgeNode // The Next edge in the list
 }
 
+/* Stores the edges in a map */
 type Graph struct {
 	Edges map[string]*EdgeNode
 }
@@ -18,6 +20,7 @@ func (graph *Graph) InitGraph() {
 	graph.Edges = make(map[string]*EdgeNode)
 }
 
+/* This function will add an edge from one node to another, it will add the node if it is not available */
 func (graph *Graph) AddNode(name string, connected_to string) {
 
 	if graph.Edges[name] == nil {
@@ -37,9 +40,9 @@ func (graph *Graph) AddNode(name string, connected_to string) {
 			Next:         nil,
 		}
 	}
-
 }
 
+/* Represents the graph nodes connections */
 func (graph *Graph) PrintGraph() {
 
 	for _, value := range graph.Edges {
@@ -48,7 +51,8 @@ func (graph *Graph) PrintGraph() {
 	}
 }
 
-/* This function will traverse through all edges the node connected to */
+/* This function will traverse through all edges the node connected to
+ */
 func lastEdgeNode(edgenode *EdgeNode, connected_to string) *EdgeNode {
 	if edgenode.Connected_to == connected_to {
 		return nil
