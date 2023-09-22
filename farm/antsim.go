@@ -12,10 +12,9 @@ func (farm *Farm) AntSim_Step() {
 		/* Loop through each available tunnel */
 		for tunnel_idx := range tunnels {
 			tunnel := tunnels[tunnel_idx]
-
 			/* If the tunneled room is empty, then move this ant to the next room */
-			if (tunnel.is_empty || tunnel.end) && !ants[ant_idx].discovered_rooms[tunnel] && ants[ant_idx].moving {
-				ants[ant_idx].discovered_rooms[tunnel] = true
+			if (tunnel.is_empty || tunnel.end) && !ants[ant_idx].discovered_rooms[tunnel.name] && ants[ant_idx].moving {
+				ants[ant_idx].discovered_rooms[tunnel.name] = true
 				ants[ant_idx].room.is_empty = true // flag current room as empty
 				ants[ant_idx].room = tunnel        // go to next room
 				tunnel.is_empty = false            // flag next room as not empty

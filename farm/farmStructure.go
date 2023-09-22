@@ -12,7 +12,7 @@ type Room struct {
 
 type Ant struct {
 	room             *Room
-	discovered_rooms map[*Room]bool
+	discovered_rooms map[string]bool
 	moving           bool
 }
 

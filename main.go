@@ -2,7 +2,6 @@ package main
 
 import (
 	ants "ants/farm"
-	"fmt"
 )
 
 func main() {
@@ -35,23 +34,6 @@ func main() {
 	/* Print farm */
 	farm.PrintFarm()
 
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-	fmt.Println()
+	farm.AntSim()
 
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-	fmt.Println()
-
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-	fmt.Println()
-
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-	fmt.Println()
-
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-	fmt.Println()
 }
