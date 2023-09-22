@@ -19,4 +19,6 @@ func main() {
 
 	farm.PrintFarm()
 
+	farm.AntSim()
+
 }
