@@ -69,12 +69,12 @@ func (farm *Farm) AddTunnel(from_room string, to_room string) {
 /* Prints the farm and rooms connections */
 func (farm *Farm) PrintFarm() {
 	for key, room := range farm.Rooms {
+		fmt.Printf("%s", key)
 		if len(room.tunnels) > 0 {
 			for _, tunnel := range room.tunnels {
-				fmt.Printf("%s -> %s\n", key, tunnel.name)
+				fmt.Printf(" -> %s", tunnel.name)
 			}
-		} else {
-			fmt.Printf("%s\n", key)
 		}
+		fmt.Print("\n")
 	}
 }
