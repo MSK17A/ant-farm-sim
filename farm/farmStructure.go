@@ -11,6 +11,9 @@ type Room struct {
 }
 
 type Farm struct {
-	Rooms map[string]*Room
-	Ants  []Room
+	rooms          map[string]*Room
+	number_of_ants int
+	ants_rooms     []*Room
+	start_room     *Room
+	end_room       *Room
 }
