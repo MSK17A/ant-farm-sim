@@ -1,6 +1,6 @@
 package main
 
-import ants "ants/pkgs"
+import ants "ants/farm"
 
 func main() {
 	var farm ants.Farm
