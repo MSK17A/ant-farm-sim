@@ -4,6 +4,7 @@ import "fmt"
 
 /* Prints the farm and rooms connections */
 func (farm *Farm) PrintFarm() {
+	fmt.Println("Rooms connections:")
 	for key, room := range farm.rooms {
 		fmt.Printf("%s ->", key)
 		if len(room.tunnels) > 0 {

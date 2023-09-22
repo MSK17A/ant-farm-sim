@@ -8,9 +8,12 @@ func (farm *Farm) InitFarm() {
 /* Puts all the ants in the start room */
 func (farm *Farm) InitAnts(ants_number int) {
 	farm.number_of_ants = ants_number
-	farm.ants_rooms = make([]*Room, farm.number_of_ants)
+	farm.ants = make([]*Ant, farm.number_of_ants)
 
 	for i := 0; i < ants_number; i++ {
-		farm.ants_rooms[i] = farm.start_room
+		farm.ants[i] = new(Ant)
+		farm.ants[i].room = farm.start_room
+		farm.ants[i].discovered_rooms = make(map[*Room]bool)
+		farm.ants[i].moving = true
 	}
 }

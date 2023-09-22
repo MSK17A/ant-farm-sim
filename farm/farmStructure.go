@@ -10,10 +10,16 @@ type Room struct {
 	name     string
 }
 
+type Ant struct {
+	room             *Room
+	discovered_rooms map[*Room]bool
+	moving           bool
+}
+
 type Farm struct {
 	rooms          map[string]*Room
 	number_of_ants int
-	ants_rooms     []*Room
+	ants           []*Ant
 	start_room     *Room
 	end_room       *Room
 }
