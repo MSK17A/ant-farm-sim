@@ -3,15 +3,20 @@ package main
 import ants "ants/pkgs"
 
 func main() {
-	var farm ants.Graph
-	farm.InitGraph()
+	var farm ants.Farm
 
-	farm.AddNode("room1", "room2")
-	farm.AddNode("room1", "room3")
-	farm.AddNode("room2", "room3")
+	farm.InitFarm()
+	farm.AddRoom("Room1", "start", 0, 0)
+	farm.AddRoom("Room2", "normal", 0, 0)
+	farm.AddRoom("Room3", "normal", 0, 0)
+	farm.AddRoom("Room4", "normal", 0, 0)
+	farm.AddRoom("Room5", "end", 0, 0)
 
+	farm.AddTunnel("Room1", "Room2")
+	farm.AddTunnel("Room1", "Room4")
+	farm.AddTunnel("Room2", "Room3")
 	//ants.PrintAdj(farm.Edges["room1"])
 
-	farm.PrintGraph()
+	farm.PrintFarm()
 
 }
