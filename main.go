@@ -19,14 +19,21 @@ func main() {
 	farm.AddTunnel("Room1", "Room2")
 	farm.AddTunnel("Room1", "Room4")
 	farm.AddTunnel("Room2", "Room3")
+	farm.AddTunnel("Room4", "Room2")
+	farm.AddTunnel("Room3", "Room5")
 
 	/* Print farm */
 	fmt.Println("\nRooms connections:")
 	farm.PrintFarm()
 
-	fmt.Println("\nAnts moves:")
+	fmt.Println("\nAnts moves step 1:")
 	farm.AntSim_Step()
-	fmt.Println("\nAnts moves:")
+	fmt.Println("\nAnts moves step 2:")
 	farm.AntSim_Step()
-
+	fmt.Println("\nAnts moves step 3:")
+	farm.AntSim_Step()
+	fmt.Println("\nAnts moves step 4:")
+	farm.AntSim_Step()
+	fmt.Println("\nAnts moves step 5:")
+	farm.AntSim_Step()
 }
