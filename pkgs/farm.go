@@ -63,18 +63,38 @@ func (farm *Farm) AddRoom(name string, start_end_normal string, pos_x int, pos_y
 
 /* Joins two rooms together */
 func (farm *Farm) AddTunnel(from_room string, to_room string) {
+	if farm.Rooms[from_room] == nil || farm.Rooms[to_room] == nil {
+		fmt.Println("One room or two wasn't found!")
+		return
+	}
+	if farm.Rooms[from_room].Tunnel_Exists(farm.Rooms[to_room]) {
+		return
+	}
+	if farm.Rooms[to_room].Tunnel_Exists(farm.Rooms[from_room]) {
+		return
+	}
 	farm.Rooms[from_room].tunnels = append(farm.Rooms[from_room].tunnels, farm.Rooms[to_room])
 }
 
 /* Prints the farm and rooms connections */
 func (farm *Farm) PrintFarm() {
 	for key, room := range farm.Rooms {
-		fmt.Printf("%s", key)
+		fmt.Printf("%s ->", key)
 		if len(room.tunnels) > 0 {
 			for _, tunnel := range room.tunnels {
-				fmt.Printf(" -> %s", tunnel.name)
+				fmt.Printf(" + %s", tunnel.name)
 			}
 		}
 		fmt.Print("\n")
 	}
+}
+
+func (room *Room) Tunnel_Exists(to_room *Room) bool {
+	for _, tunnel := range room.tunnels {
+		if tunnel.name == to_room.name {
+			fmt.Printf("Tunnel %s -> %s already exist\n", room.name, to_room.name)
+			return true
+		}
+	}
+	return false
 }
