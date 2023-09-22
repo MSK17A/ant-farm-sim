@@ -26,14 +26,5 @@ func main() {
 	fmt.Println("\nRooms connections:")
 	farm.PrintFarm()
 
-	fmt.Println("\nAnts moves step 1:")
-	farm.AntSim_Step()
-	fmt.Println("\nAnts moves step 2:")
-	farm.AntSim_Step()
-	fmt.Println("\nAnts moves step 3:")
-	farm.AntSim_Step()
-	fmt.Println("\nAnts moves step 4:")
-	farm.AntSim_Step()
-	fmt.Println("\nAnts moves step 5:")
-	farm.AntSim_Step()
+	farm.AntSim()
 }
