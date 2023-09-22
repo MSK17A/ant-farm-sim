@@ -22,10 +22,6 @@ func (farm *Farm) AntSim_Step() {
 			}
 		}
 	}
-
-	for i, ant_room := range farm.ants_rooms {
-		fmt.Printf("ant %d in %s\n", i+1, ant_room.name)
-	}
 }
 
 func (farm *Farm) AntSim() {
@@ -33,17 +29,8 @@ func (farm *Farm) AntSim() {
 	for !farm.Ants_Stuck() {
 		fmt.Printf("\nAnts moves step %d:\n", Step)
 		farm.AntSim_Step()
+		farm.Print_Ants_Locations()
 		Step++
 	}
 
-}
-
-func (farm *Farm) Ants_Stuck() bool {
-
-	for _, ant_room := range farm.ants_rooms {
-		if len(ant_room.tunnels) > 0 {
-			return false
-		}
-	}
-	return true
 }
