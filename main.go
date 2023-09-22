@@ -1,6 +1,9 @@
 package main
 
-import ants "ants/farm"
+import (
+	ants "ants/farm"
+	"fmt"
+)
 
 func main() {
 	var farm ants.Farm
@@ -17,8 +20,13 @@ func main() {
 	farm.AddTunnel("Room1", "Room4")
 	farm.AddTunnel("Room2", "Room3")
 
+	/* Print farm */
+	fmt.Println("\nRooms connections:")
 	farm.PrintFarm()
 
-	farm.AntSim()
+	fmt.Println("\nAnts moves:")
+	farm.AntSim_Step()
+	fmt.Println("\nAnts moves:")
+	farm.AntSim_Step()
 
 }

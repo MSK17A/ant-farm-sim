@@ -2,7 +2,7 @@ package farm
 
 import "fmt"
 
-func (farm *Farm) AntSim() {
+func (farm *Farm) AntSim_Step() {
 
 	ant_rooms := farm.ants_rooms
 	/* Loop throgh each ant */
@@ -24,6 +24,6 @@ func (farm *Farm) AntSim() {
 	}
 
 	for i, ant_room := range farm.ants_rooms {
-		fmt.Printf("ant %d in %s\n", i, ant_room.name)
+		fmt.Printf("ant %d in %s\n", i+1, ant_room.name)
 	}
 }
