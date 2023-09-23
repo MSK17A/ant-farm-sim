@@ -13,8 +13,8 @@ func (farm *Farm) InitAnts(ants_number int) {
 	for i := 0; i < ants_number; i++ {
 		farm.ants[i] = new(Ant)
 		farm.ants[i].room = farm.start_room
-		farm.ants[i].discovered_rooms = make(map[string]bool)
-		farm.ants[i].discovered_rooms[farm.start_room.name] = true
+		farm.ants[i].discovered_rooms = make(map[*Room]bool)
+		farm.ants[i].discovered_rooms[farm.start_room] = true
 		farm.ants[i].moving = true
 	}
 }
