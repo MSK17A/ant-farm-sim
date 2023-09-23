@@ -15,4 +15,5 @@ func (farm *Farm) AddTunnel(from_room string, to_room string) {
 		return
 	}
 	farm.rooms[from_room].tunnels = append(farm.rooms[from_room].tunnels, farm.rooms[to_room])
+	farm.rooms[to_room].tunnels = append(farm.rooms[to_room].tunnels, farm.rooms[from_room])
 }
