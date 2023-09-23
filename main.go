@@ -1,7 +1,7 @@
 package main
 
 import (
-	ants "ants/farm"
+	ants "ants/pkg/farm"
 )
 
 func main() {

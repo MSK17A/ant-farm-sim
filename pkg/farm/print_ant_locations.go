@@ -3,7 +3,7 @@ package farm
 import "fmt"
 
 /*
-	Prints the location of each ant
+Prints the location of each ant
 */
 func (farm *Farm) Print_Ants_Locations() {
 	for i, ant := range farm.ants {
