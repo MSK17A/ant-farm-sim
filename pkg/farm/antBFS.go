@@ -17,7 +17,7 @@ func (farm *Farm) AntBFS() {
 		for _, tunnel := range room.tunnels {
 			if !visited[tunnel] {
 				short_path_farm.AddRoom(tunnel.name, "normal", 0, 0)
-				short_path_farm.AddTunnel(room.name, tunnel.name)
+				short_path_farm.AddTunnel(tunnel.name, room.name, false)
 				visited[tunnel] = true
 				queue.Enqueue(tunnel)
 			}
@@ -26,4 +26,5 @@ func (farm *Farm) AntBFS() {
 		room = queue.Dequeue()
 	}
 
+	short_path_farm.PrintFarm()
 }
