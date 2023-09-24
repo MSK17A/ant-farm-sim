@@ -36,4 +36,6 @@ func main() {
 
 	farm.AntSim()
 
+	farm.AntBFS()
+
 }
