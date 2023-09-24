@@ -1,14 +1,14 @@
-package helpers
+package farm
 
 type Queue struct {
-	items []interface{}
+	items []*Room
 }
 
-func (q *Queue) Enqueue(item interface{}) {
+func (q *Queue) Enqueue(item *Room) {
 	q.items = append(q.items, item)
 }
 
-func (q *Queue) Dequeue() interface{} {
+func (q *Queue) Dequeue() *Room {
 	if len(q.items) == 0 {
 		return nil // Queue is empty
 	}
