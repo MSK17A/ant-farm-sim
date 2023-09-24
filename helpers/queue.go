@@ -1,16 +1,14 @@
 package helpers
 
-import farm "ants/pkg/farm"
-
 type Queue struct {
-	items []*farm.Room
+	items []interface{}
 }
 
-func (q *Queue) Enqueue(item *farm.Room) {
+func (q *Queue) Enqueue(item interface{}) {
 	q.items = append(q.items, item)
 }
 
-func (q *Queue) Dequeue() *farm.Room {
+func (q *Queue) Dequeue() interface{} {
 	if len(q.items) == 0 {
 		return nil // Queue is empty
 	}
