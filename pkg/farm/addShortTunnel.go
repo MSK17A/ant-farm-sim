@@ -15,9 +15,9 @@ func (farm *Farm) AddShortTunnel(from_room string, to_room string, bi_direction 
 		return
 	}
 	if bi_direction {
-		farm.rooms[from_room].short_tunnels = append(farm.rooms[from_room].short_tunnels, farm.rooms[to_room])
-		farm.rooms[to_room].short_tunnels = append(farm.rooms[to_room].short_tunnels, farm.rooms[from_room])
+		farm.rooms[from_room].short_tunnels.AddToList(farm.rooms[to_room])
+		farm.rooms[to_room].short_tunnels.AddToList(farm.rooms[from_room])
 	} else {
-		farm.rooms[from_room].short_tunnels = append(farm.rooms[from_room].short_tunnels, farm.rooms[to_room])
+		farm.rooms[from_room].short_tunnels.AddToList(farm.rooms[to_room])
 	}
 }
