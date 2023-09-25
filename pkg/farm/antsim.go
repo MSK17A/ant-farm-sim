@@ -25,6 +25,8 @@ func (farm *Farm) AntSim_Step() {
 				break
 			}
 		}
+		farm.FreeShortTunnels()
+		farm.AntBFS()
 	}
 }
 
