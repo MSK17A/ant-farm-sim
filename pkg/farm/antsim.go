@@ -8,7 +8,7 @@ func (farm *Farm) AntSim_Step() {
 
 	/* Loop throgh each ant */
 	for ant_idx := range ants {
-		tunnels := ants[ant_idx].room.tunnels
+		tunnels := ants[ant_idx].room.short_tunnels
 
 		/* Loop through each available tunnel */
 		for tunnel_idx := range tunnels {

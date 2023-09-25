@@ -34,7 +34,6 @@ func main() {
 	/* Print farm */
 	farm.PrintFarm()
 
-	short_paths := farm.AntBFS()
-	short_paths.SetAnts(farm.GetAnts())
-	short_paths.AntSim()
+	farm.AntBFS()
+	farm.AntSim()
 }
