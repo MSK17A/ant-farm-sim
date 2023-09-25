@@ -5,6 +5,7 @@ import "fmt"
 func (farm *Farm) AntSim_Step() {
 
 	ants := farm.ants
+
 	/* Loop throgh each ant */
 	for ant_idx := range ants {
 		tunnels := ants[ant_idx].room.tunnels

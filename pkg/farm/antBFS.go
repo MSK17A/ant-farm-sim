@@ -1,6 +1,6 @@
 package farm
 
-func (farm *Farm) AntBFS() Farm {
+func (farm *Farm) AntBFS() *Farm {
 	queue := &Queue{}
 	var short_path_farm Farm
 	short_path_farm.InitFarm()
@@ -14,9 +14,9 @@ func (farm *Farm) AntBFS() Farm {
 
 	for room != nil {
 		for _, tunnel := range room.tunnels {
-			if !visited[tunnel] {
+			if !visited[tunnel] && tunnel.is_empty {
 				short_path_farm.AddRoom(tunnel.name, "normal", 0, 0)
-				short_path_farm.AddTunnel(tunnel.name, room.name, true)
+				short_path_farm.AddTunnel(tunnel.name, room.name, false)
 				visited[tunnel] = true
 				queue.Enqueue(tunnel)
 			}
@@ -25,5 +25,5 @@ func (farm *Farm) AntBFS() Farm {
 		room = queue.Dequeue()
 	}
 
-	return short_path_farm
+	return &short_path_farm
 }

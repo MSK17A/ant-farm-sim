@@ -1,13 +1,14 @@
 package farm
 
 type Room struct {
-	tunnels  []*Room
-	start    bool
-	end      bool
-	is_empty bool
-	pos_x    int
-	pos_y    int
-	name     string
+	tunnels       []*Room
+	short_tunnels []*Room
+	start         bool
+	end           bool
+	is_empty      bool
+	pos_x         int
+	pos_y         int
+	name          string
 }
 
 type Ant struct {
