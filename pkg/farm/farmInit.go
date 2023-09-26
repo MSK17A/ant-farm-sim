@@ -5,9 +5,6 @@ func (farm *Farm) InitFarm() {
 	farm.rooms = make(map[string]*Room)
 	farm.distances = make(map[*Room]int)
 
-	for room_idx := range farm.rooms {
-		farm.distances[farm.rooms[room_idx]] = 99999
-	}
 }
 
 /* Puts all the ants in the start room */
@@ -19,7 +16,13 @@ func (farm *Farm) InitAnts(ants_number int) {
 		farm.ants[i] = new(Ant)
 		farm.ants[i].room = farm.start_room
 		farm.ants[i].discovered_rooms = make(map[*Room]bool)
-		farm.ants[i].discovered_rooms[farm.start_room] = true
+		farm.ants[i].discovered_rooms[farm.start_room] = false
 		farm.ants[i].moving = true
+	}
+}
+
+func (farm *Farm) InitDistances() {
+	for room_idx := range farm.rooms {
+		farm.distances[farm.rooms[room_idx]] = 99999
 	}
 }

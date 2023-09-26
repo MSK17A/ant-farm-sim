@@ -9,26 +9,18 @@ func (farm *Farm) AntSim_Step() {
 	/* Loop throgh each ant */
 	for ant_idx := range ants {
 
-		/* Loop through each available tunnel */
-		for _, tunnels := range ants[ant_idx].room.tunnels {
-			/* If the tunneled room is empty, then move this ant to the next room */
-			if (tunnels.is_empty || tunnels.end) && (!ants[ant_idx].discovered_rooms[tunnels] && ants[ant_idx].moving) {
-				ants[ant_idx].discovered_rooms[tunnels] = true
-				ants[ant_idx].room.is_empty = true // flag current room as empty
-				ants[ant_idx].room = tunnels       // go to next room
-				tunnels.is_empty = false           // flag next room as not empty
-				if ants[ant_idx].room.end {
-					ants[ant_idx].moving = false
-				}
-				break
-			}
-			tunnel_alt := farm.Find_Min_Path(ants[ant_idx].room.tunnels)
-			ants[ant_idx].discovered_rooms[tunnels] = true
+		alt_tun := farm.Find_Min_Path(ants[ant_idx])
+		if (alt_tun.is_empty || alt_tun.end) && (!ants[ant_idx].discovered_rooms[alt_tun] && ants[ant_idx].moving) {
+			ants[ant_idx].discovered_rooms[alt_tun] = true
 			ants[ant_idx].room.is_empty = true // flag current room as empty
-			ants[ant_idx].room = tunnel_alt    // go to next room
-			tunnels.is_empty = false           // flag next room as not empty
+			ants[ant_idx].room = alt_tun       // go to next room
+			alt_tun.is_empty = false           // flag next room as not empty
+			if ants[ant_idx].room.end {
+				ants[ant_idx].moving = false
+			}
 		}
 	}
+
 }
 
 func (farm *Farm) AntSim() {
@@ -56,13 +48,16 @@ func (farm *Farm) AntSim_Iter(iter int) {
 
 }
 
-func (farm *Farm) Find_Min_Path(tunnels []*Room) *Room {
+func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 	min := 9999
+	temp := ant.room.tunnels[0]
 
+	tunnels := ant.room.tunnels
 	for tunnel_idx := range tunnels {
-		if farm.distances[tunnels[tunnel_idx]] < min && tunnels[tunnel_idx].is_empty {
-			return tunnels[tunnel_idx]
+		if farm.distances[tunnels[tunnel_idx]] < min && (tunnels[tunnel_idx].is_empty || tunnels[tunnel_idx].end) && !ant.discovered_rooms[tunnels[tunnel_idx]] {
+			temp = tunnels[tunnel_idx]
+			min = farm.distances[temp]
 		}
 	}
-	return nil
+	return temp
 }

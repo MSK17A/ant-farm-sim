@@ -18,6 +18,7 @@ func main() {
 	farm.AddRoom("Room1", "start", 0, 0)
 	farm.AddRoom("Room0", "end", 0, 0)
 	farm.InitAnts(3)
+	farm.InitDistances()
 
 	farm.AddTunnel("Room7", "Room6", true)
 	farm.AddTunnel("Room4", "Room3", true)
@@ -35,6 +36,7 @@ func main() {
 	/* Print farm */
 	farm.PrintFarm()
 	farm.AntBFS()
+	farm.PrintDistances()
 
 	fmt.Println("\nStep 1")
 	farm.AntSim_Step()
@@ -51,8 +53,8 @@ func main() {
 	fmt.Println("\nStep 4")
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
-
-	fmt.Println("\nStep 5")
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
+	/*
+		fmt.Println("\nStep 5")
+		farm.AntSim_Step()
+		farm.Print_Ants_Locations()*/
 }
