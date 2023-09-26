@@ -11,6 +11,7 @@ func (farm *Farm) AntSim_Step() {
 
 		alt_tun := farm.Find_Min_Path(ants[ant_idx])
 		if (alt_tun.is_empty || alt_tun.end) && (!ants[ant_idx].discovered_rooms[alt_tun] && ants[ant_idx].moving) {
+			ants[ant_idx].discovered_rooms[ants[ant_idx].room] = true
 			ants[ant_idx].discovered_rooms[alt_tun] = true
 			ants[ant_idx].room.is_empty = true // flag current room as empty
 			ants[ant_idx].room = alt_tun       // go to next room
@@ -54,7 +55,7 @@ func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 
 	tunnel := ant.room.tunnels.head
 	for tunnel != nil {
-		if farm.distances[tunnel.room] < min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] {
+		if farm.distances[tunnel.room] < min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] && !tunnel.room.start {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}

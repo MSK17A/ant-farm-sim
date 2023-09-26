@@ -2,61 +2,71 @@ package main
 
 import (
 	ants "ants/pkg/farm"
-	"fmt"
 )
 
 func main() {
 	var farm ants.Farm
 
-	farm.InitFarm()
-	farm.AddRoom("Room2", "normal", 0, 0)
-	farm.AddRoom("Room3", "normal", 0, 0)
-	farm.AddRoom("Room1", "start", 0, 0)
-	farm.AddRoom("Room0", "end", 0, 0)
-	farm.AddRoom("Room7", "normal", 0, 0)
-	farm.AddRoom("Room5", "normal", 0, 0)
-	farm.AddRoom("Room6", "normal", 0, 0)
-	farm.AddRoom("Room4", "normal", 0, 0)
-	farm.InitAnts(3)
-	farm.InitDistances()
-	farm.InitTunnels()
-
-	farm.AddTunnel("Room2", "Room1", true)
-	farm.AddTunnel("Room6", "Room5", true)
-	farm.AddTunnel("Room3", "Room5", true)
-	farm.AddTunnel("Room7", "Room2", true)
-	farm.AddTunnel("Room0", "Room6", true)
-	farm.AddTunnel("Room7", "Room6", true)
-	farm.AddTunnel("Room4", "Room3", true)
-	farm.AddTunnel("Room4", "Room2", true)
-	farm.AddTunnel("Room0", "Room4", true)
-	farm.AddTunnel("Room5", "Room2", true)
-	farm.AddTunnel("Room7", "Room4", true)
-	farm.AddTunnel("Room1", "Room3", true)
-
+	namla1(&farm)
 	/* Print farm */
 	farm.PrintFarm()
 	farm.AntBFS()
 	farm.PrintDistances()
 
-	fmt.Println("\nStep 1")
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-
-	fmt.Println("\nStep 2")
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-
-	fmt.Println("\nStep 3")
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
-
-	fmt.Println("\nStep 4")
-	farm.AntSim_Step()
-	farm.Print_Ants_Locations()
+	farm.AntSim_Iter(7)
 	/*
 		fmt.Println("\nStep 5")
 		farm.AntSim_Step()
 		farm.Print_Ants_Locations()
 	*/
+}
+
+func namla2(farm *ants.Farm) {
+
+	farm.InitFarm()
+	farm.AddRoom("Room0", "start", 0, 0)
+	farm.AddRoom("Room4", "normal", 0, 0)
+	farm.AddRoom("Room5", "end", 0, 0)
+	farm.AddRoom("Room2", "normal", 0, 0)
+	farm.AddRoom("Room3", "normal", 0, 0)
+	farm.AddRoom("Room1", "normal", 0, 0)
+	farm.InitTunnels()
+	farm.InitAnts(4)
+	farm.InitDistances()
+
+	farm.AddTunnel("Room0", "Room1", true)
+	farm.AddTunnel("Room2", "Room4", true)
+	farm.AddTunnel("Room1", "Room4", true)
+	farm.AddTunnel("Room0", "Room2", true)
+	farm.AddTunnel("Room4", "Room5", true)
+	farm.AddTunnel("Room3", "Room0", true)
+	farm.AddTunnel("Room4", "Room3", true)
+}
+
+func namla1(farm *ants.Farm) {
+	farm.InitFarm()
+	farm.AddRoom("Room2", "normal", 0, 0)
+	farm.AddRoom("Room3", "normal", 0, 0)
+	farm.AddRoom("Room6", "normal", 0, 0)
+	farm.AddRoom("Room7", "normal", 0, 0)
+	farm.AddRoom("Room4", "normal", 0, 0)
+	farm.AddRoom("Room5", "normal", 0, 0)
+	farm.AddRoom("Room1", "start", 0, 0)
+	farm.AddRoom("Room0", "end", 0, 0)
+	farm.InitTunnels()
+	farm.InitAnts(3)
+	farm.InitDistances()
+
+	farm.AddTunnel("Room0", "Room4", true)
+	farm.AddTunnel("Room0", "Room6", true)
+	farm.AddTunnel("Room1", "Room3", true)
+	farm.AddTunnel("Room4", "Room3", true)
+	farm.AddTunnel("Room5", "Room2", true)
+	farm.AddTunnel("Room3", "Room5", true)
+	farm.AddTunnel("Room4", "Room2", true)
+	farm.AddTunnel("Room2", "Room1", true)
+	farm.AddTunnel("Room7", "Room6", true)
+	farm.AddTunnel("Room7", "Room2", true)
+	farm.AddTunnel("Room7", "Room4", true)
+	farm.AddTunnel("Room6", "Room5", true)
 }
