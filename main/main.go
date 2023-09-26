@@ -2,6 +2,7 @@ package main
 
 import (
 	ants "ants/pkg/farm"
+	"fmt"
 )
 
 func main() {
@@ -36,10 +37,23 @@ func main() {
 	farm.ReInitShortTunnels()
 	farm.AntBFS()
 
+	fmt.Println("\nStep 1")
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
 
+	fmt.Println("\nStep 2")
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
 
+	fmt.Println("\nStep 3")
+	farm.AntSim_Step()
+	farm.Print_Ants_Locations()
+
+	fmt.Println("\nStep 4")
+	farm.AntSim_Step()
+	farm.Print_Ants_Locations()
+
+	fmt.Println("\nStep 5")
+	farm.AntSim_Step()
+	farm.Print_Ants_Locations()
 }
