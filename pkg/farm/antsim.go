@@ -11,12 +11,13 @@ func (farm *Farm) AntSim_Step() {
 	for ant_idx := range ants {
 		ant := ants[ant_idx]
 		alt_tun := farm.Find_Min_Path(ant)
+
 		if (alt_tun.is_empty || alt_tun.end) && (!ant.discovered_rooms[alt_tun] && ant.moving) {
-			ant.discovered_rooms[ant.room] = true
-			ant.discovered_rooms[alt_tun] = true
-			ant.room.is_empty = true // flag current room as empty
-			ant.room = alt_tun       // go to next room
-			alt_tun.is_empty = false // flag next room as not empty
+			//ant.discovered_rooms[alt_tun] = true  // remember the next room
+			ant.discovered_rooms[ant.room] = true // remember the current room
+			ant.room.is_empty = true              // flag current room as empty
+			ant.room = alt_tun                    // go to next room
+			alt_tun.is_empty = false              // flag next room as not empty
 			if ant.room.end {
 				ant.moving = false
 			}
