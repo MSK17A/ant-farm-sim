@@ -50,14 +50,15 @@ func (farm *Farm) AntSim_Iter(iter int) {
 
 func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 	min := 9999
-	temp := ant.room.tunnels[0]
+	temp := ant.room.tunnels.head.room
 
-	tunnels := ant.room.tunnels
-	for tunnel_idx := range tunnels {
-		if farm.distances[tunnels[tunnel_idx]] < min && (tunnels[tunnel_idx].is_empty || tunnels[tunnel_idx].end) && !ant.discovered_rooms[tunnels[tunnel_idx]] {
-			temp = tunnels[tunnel_idx]
+	tunnel := ant.room.tunnels.head
+	for tunnel != nil {
+		if farm.distances[tunnel.room] < min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] {
+			temp = tunnel.room
 			min = farm.distances[temp]
 		}
+		tunnel = tunnel.next
 	}
 	return temp
 }

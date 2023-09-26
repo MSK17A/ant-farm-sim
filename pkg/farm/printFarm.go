@@ -7,10 +7,11 @@ func (farm *Farm) PrintFarm() {
 	fmt.Println("Rooms connections:")
 	for key, room := range farm.rooms {
 		fmt.Printf("%s ->", key)
-		if len(room.tunnels) > 0 {
-			for _, tunnel := range room.tunnels {
-				fmt.Printf(" + %s", tunnel.name)
-			}
+
+		tunnel := room.tunnels.head
+		for tunnel != nil {
+			fmt.Printf(" + %s", tunnel.room.name)
+			tunnel = tunnel.next
 		}
 		fmt.Print("\n")
 	}

@@ -1,7 +1,7 @@
 package farm
 
 type Room struct {
-	tunnels  []*Room
+	tunnels  *LinkedRoomsList
 	start    bool
 	end      bool
 	is_empty bool

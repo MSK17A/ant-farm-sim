@@ -26,3 +26,9 @@ func (farm *Farm) InitDistances() {
 		farm.distances[farm.rooms[room_idx]] = 99999
 	}
 }
+
+func (farm *Farm) InitTunnels() {
+	for room_idx := range farm.rooms {
+		farm.rooms[room_idx].tunnels = &LinkedRoomsList{}
+	}
+}

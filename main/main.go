@@ -19,6 +19,7 @@ func main() {
 	farm.AddRoom("Room4", "normal", 0, 0)
 	farm.InitAnts(3)
 	farm.InitDistances()
+	farm.InitTunnels()
 
 	farm.AddTunnel("Room2", "Room1", true)
 	farm.AddTunnel("Room6", "Room5", true)
