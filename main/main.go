@@ -35,6 +35,7 @@ func main() {
 	farm.PrintFarm()
 	farm.ReInitShortTunnels()
 	farm.AntBFS()
-	farm.AntSim()
+
+	farm.AntSim_Step()
 
 }
