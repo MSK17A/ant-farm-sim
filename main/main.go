@@ -33,7 +33,8 @@ func main() {
 
 	/* Print farm */
 	farm.PrintFarm()
-
+	farm.ReInitShortTunnels()
 	farm.AntBFS()
 	farm.AntSim()
+
 }

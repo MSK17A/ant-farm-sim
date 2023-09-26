@@ -16,7 +16,7 @@ func (farm *Farm) AddRoom(name string, start_end_normal string, pos_x int, pos_y
 			pos_y:    pos_y,
 		}
 		farm.start_room = farm.rooms[name]
-		farm.rooms[name].short_tunnels = &LinkedRoomsList{}
+		//farm.rooms[name].short_tunnels = &LinkedRoomsList{}
 	case "end":
 		farm.rooms[name] = &Room{
 			name:     name,
@@ -27,7 +27,7 @@ func (farm *Farm) AddRoom(name string, start_end_normal string, pos_x int, pos_y
 			pos_y:    pos_y,
 		}
 		farm.end_room = farm.rooms[name]
-		farm.rooms[name].short_tunnels = &LinkedRoomsList{}
+		//farm.rooms[name].short_tunnels = &LinkedRoomsList{}
 	case "normal":
 		farm.rooms[name] = &Room{
 			name:     name,
@@ -37,7 +37,7 @@ func (farm *Farm) AddRoom(name string, start_end_normal string, pos_x int, pos_y
 			pos_x:    pos_x,
 			pos_y:    pos_y,
 		}
-		farm.rooms[name].short_tunnels = &LinkedRoomsList{}
+		//farm.rooms[name].short_tunnels = &LinkedRoomsList{}
 	default:
 		fmt.Println("Enter room type")
 	}
