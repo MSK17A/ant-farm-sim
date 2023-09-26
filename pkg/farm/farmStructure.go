@@ -1,14 +1,13 @@
 package farm
 
 type Room struct {
-	tunnels       []*Room
-	short_tunnels *LinkedRoomsList
-	start         bool
-	end           bool
-	is_empty      bool
-	pos_x         int
-	pos_y         int
-	name          string
+	tunnels  []*Room
+	start    bool
+	end      bool
+	is_empty bool
+	pos_x    int
+	pos_y    int
+	name     string
 }
 
 type Ant struct {
@@ -20,6 +19,7 @@ type Ant struct {
 type Farm struct {
 	rooms          map[string]*Room
 	number_of_ants int
+	distances      map[*Room]int
 	ants           []*Ant
 	start_room     *Room
 	end_room       *Room

@@ -19,46 +19,40 @@ func main() {
 	farm.AddRoom("Room0", "end", 0, 0)
 	farm.InitAnts(3)
 
-	farm.AddTunnel("Room0", "Room4", true)
-	farm.AddTunnel("Room0", "Room6", true)
-	farm.AddTunnel("Room1", "Room3", true)
+	farm.AddTunnel("Room7", "Room6", true)
 	farm.AddTunnel("Room4", "Room3", true)
 	farm.AddTunnel("Room5", "Room2", true)
+	farm.AddTunnel("Room6", "Room5", true)
 	farm.AddTunnel("Room3", "Room5", true)
+	farm.AddTunnel("Room0", "Room6", true)
 	farm.AddTunnel("Room4", "Room2", true)
 	farm.AddTunnel("Room2", "Room1", true)
-	farm.AddTunnel("Room7", "Room6", true)
+	farm.AddTunnel("Room0", "Room4", true)
 	farm.AddTunnel("Room7", "Room2", true)
 	farm.AddTunnel("Room7", "Room4", true)
-	farm.AddTunnel("Room6", "Room5", true)
+	farm.AddTunnel("Room1", "Room3", true)
 
 	/* Print farm */
 	farm.PrintFarm()
-	farm.ReInitShortTunnels()
 	farm.AntBFS()
 
 	fmt.Println("\nStep 1")
-	farm.PrintShortFarm()
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
 
 	fmt.Println("\nStep 2")
-	farm.PrintShortFarm()
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
 
 	fmt.Println("\nStep 3")
-	farm.PrintShortFarm()
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
 
 	fmt.Println("\nStep 4")
-	farm.PrintShortFarm()
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
 
 	fmt.Println("\nStep 5")
-	farm.PrintShortFarm()
 	farm.AntSim_Step()
 	farm.Print_Ants_Locations()
 }

@@ -3,6 +3,11 @@ package farm
 /* Allocates an initial space for the farm */
 func (farm *Farm) InitFarm() {
 	farm.rooms = make(map[string]*Room)
+	farm.distances = make(map[*Room]int)
+
+	for room_idx := range farm.rooms {
+		farm.distances[farm.rooms[room_idx]] = 99999
+	}
 }
 
 /* Puts all the ants in the start room */
