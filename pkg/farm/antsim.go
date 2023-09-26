@@ -26,7 +26,7 @@ func (farm *Farm) AntSim_Step() {
 			tunnels = tunnels.next
 		}
 		//farm.PrintShortFarm()
-		farm.ReInitShortTunnels()
+		//farm.ReInitShortTunnels()
 		farm.AntBFS()
 	}
 }

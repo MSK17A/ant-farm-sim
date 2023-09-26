@@ -11,7 +11,7 @@ func (farm *Farm) AntBFS() {
 
 	for room != nil {
 		for _, tunnel := range room.tunnels {
-			if !visited[tunnel] && tunnel.is_empty {
+			if !visited[tunnel] && room.is_empty {
 				//short_path_farm.AddRoom(tunnel.name, "normal", 0, 0)
 				farm.AddShortTunnel(tunnel.name, room.name, false)
 				visited[tunnel] = true
