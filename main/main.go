@@ -37,5 +37,9 @@ func main() {
 	farm.AntBFS()
 
 	farm.AntSim_Step()
+	farm.Print_Ants_Locations()
+
+	farm.AntSim_Step()
+	farm.Print_Ants_Locations()
 
 }
