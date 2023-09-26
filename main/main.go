@@ -13,7 +13,7 @@ func main() {
 	farm.AntBFS()
 	farm.PrintDistances()
 
-	farm.AntSim_Iter(7)
+	farm.AntSim()
 	/*
 		fmt.Println("\nStep 5")
 		farm.AntSim_Step()
