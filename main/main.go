@@ -9,9 +9,9 @@ func main() {
 
 	namla3(&farm)
 	/* Print farm */
-	farm.PrintFarm()
+	//farm.PrintFarm()
 	farm.AntBFS()
-	farm.PrintDistances()
+	//farm.PrintDistances()
 
 	farm.AntSim()
 	/*
@@ -23,18 +23,18 @@ func main() {
 
 func namla3(farm *ants.Farm) {
 	farm.InitFarm()
-	farm.AddRoom("Room0", "start", 0, 0)
-	farm.AddRoom("Room1", "normal", 0, 0)
-	farm.AddRoom("Room2", "normal", 0, 0)
-	farm.AddRoom("Room3", "end", 0, 0)
+	farm.AddRoom("0", "start", 0, 0)
+	farm.AddRoom("1", "normal", 0, 0)
+	farm.AddRoom("2", "normal", 0, 0)
+	farm.AddRoom("3", "end", 0, 0)
 	farm.InitTunnels()
 	farm.InitAnts(20)
 	farm.InitDistances()
 
-	farm.AddTunnel("Room0", "Room1", true)
-	farm.AddTunnel("Room0", "Room3", true)
-	farm.AddTunnel("Room1", "Room2", true)
-	farm.AddTunnel("Room3", "Room2", true)
+	farm.AddTunnel("0", "1", true)
+	farm.AddTunnel("0", "3", true)
+	farm.AddTunnel("1", "2", true)
+	farm.AddTunnel("3", "2", true)
 }
 
 func namla2(farm *ants.Farm) {

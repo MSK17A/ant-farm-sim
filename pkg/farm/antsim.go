@@ -34,7 +34,7 @@ func (farm *Farm) AntSim() {
 
 	Step := 1
 	for !farm.Ants_At_End() {
-		fmt.Printf("\nAnts moves step %d:\n", Step)
+		//fmt.Printf("\nAnts moves step %d:\n", Step)
 		farm.AntSim_Step()
 		farm.Print_Ants_Locations()
 		Step++
