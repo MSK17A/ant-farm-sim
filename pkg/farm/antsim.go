@@ -4,15 +4,15 @@ import "fmt"
 
 /* Starts the simulator with one step per call */
 func (farm *Farm) AntSim_Step() {
-
 	ants := farm.ants
 
 	/* Loop throgh each ant */
 	for ant_idx := range ants {
+
 		ant := ants[ant_idx]
 		alt_tun := farm.Find_Min_Path(ant)
-
-		if (alt_tun.is_empty || alt_tun.end) && (!ant.discovered_rooms[alt_tun] && ant.moving) {
+		if (alt_tun.is_empty || alt_tun.end) && !ant.discovered_rooms[alt_tun] && ant.moving && !ant.room.locked_tunnels[alt_tun.name] {
+			ant.room.locked_tunnels[alt_tun.name] = true
 			//ant.discovered_rooms[alt_tun] = true  // remember the next room
 			ant.discovered_rooms[ant.room] = true // remember the current room
 			ant.room.is_empty = true              // flag current room as empty
@@ -20,10 +20,12 @@ func (farm *Farm) AntSim_Step() {
 			alt_tun.is_empty = false              // flag next room as not empty
 			if ant.room.end {
 				ant.moving = false
+
 			}
+
 		}
 	}
-
+	farm.Unlock_Locked_Tunnel()
 }
 
 /* Starts the simulator until all ants are at the end room */
@@ -60,11 +62,23 @@ func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 
 	tunnel := ant.room.tunnels.head
 	for tunnel != nil {
-		if farm.distances[tunnel.room] < min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] && !tunnel.room.start {
+		if farm.distances[tunnel.room] < min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] && !tunnel.room.start && !ant.room.locked_tunnels[tunnel.room.name] {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
 		tunnel = tunnel.next
 	}
 	return temp
+}
+
+func (farm *Farm) Unlock_Locked_Tunnel() {
+	ants := farm.ants
+
+	for ants_idx := range ants {
+		ant := ants[ants_idx]
+
+		for locked_tunnel_idx := range ant.room.locked_tunnels {
+			ant.room.locked_tunnels[locked_tunnel_idx] = false
+		}
+	}
 }
