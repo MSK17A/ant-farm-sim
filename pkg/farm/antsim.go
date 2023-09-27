@@ -22,6 +22,7 @@ func (farm *Farm) AntSim_Step() {
 				ant.moving = false
 
 			}
+			ant.moved = true
 
 		}
 	}

@@ -7,6 +7,10 @@ Prints the location of each ant
 */
 func (farm *Farm) Print_Ants_Locations() {
 	for i, ant := range farm.ants {
-		fmt.Printf("ant %d in %s\n", i+1, ant.room.name)
+		if ant.moved {
+			fmt.Printf(" L%d-%s", i+1, ant.room.name)
+			ant.moved = false
+		}
 	}
+	fmt.Println()
 }
