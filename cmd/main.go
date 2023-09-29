@@ -22,6 +22,8 @@ func main() {
 	farm.AntSim()
 }
 
+// Functions below are used to test the logic
+/*
 func namla5(farm *ants.Farm) {
 	farm.InitFarm()
 	farm.AddRoom("1", "start", 0, 0)
@@ -136,3 +138,4 @@ func namla1(farm *ants.Farm) {
 	farm.AddTunnel("7", "4", true)
 	farm.AddTunnel("6", "5", true)
 }
+*/
