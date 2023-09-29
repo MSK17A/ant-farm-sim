@@ -13,7 +13,7 @@ func (farm *Farm) AntSim_Step(ants_to_choose_to_take_short_path int) {
 
 		ant := ants[ant_idx]
 		alt_tun := farm.Find_Min_Path(ant, ant_idx+1, ants_to_choose_to_take_short_path)
-		if (alt_tun.is_empty || alt_tun.end) && !ant.discovered_rooms[alt_tun] && ant.moving && !ant.room.locked_tunnels[alt_tun.name] {
+		if check_moving_possiblity(ant, alt_tun) {
 			//ant.discovered_rooms[alt_tun] = true  // remember the next room
 			ant.room.locked_tunnels[alt_tun.name] = true // Lock the tunnel from beign used by other ant until step is finished
 			ant.discovered_rooms[ant.room] = true        // remember the current room
@@ -80,16 +80,21 @@ func (farm *Farm) Find_Min_Path(ant *Ant, ant_idx int, ants_to_choose_to_take_sh
 
 	tunnel := ant.room.tunnels.head
 	for tunnel != nil {
-		if farm.distances[tunnel.room] < min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] && !tunnel.room.start && !ant.room.locked_tunnels[tunnel.room.name] {
+		if farm.distances[tunnel.room] < min && check_moving_possiblity(ant, tunnel.room) {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
-		/* If these ant are last n ant then wait till the short path is available */
 		if ant_idx > ants_to_choose_to_take_short_path && farm.distances[tunnel.room] <= min {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
+		/* If these ant are last n ant then wait till the short path is available */
+
 		tunnel = tunnel.next
 	}
 	return temp
+}
+
+func check_moving_possiblity(ant *Ant, tunnel *Room) bool {
+	return (tunnel.is_empty || tunnel.end) && !ant.discovered_rooms[tunnel] && !tunnel.start && !ant.room.locked_tunnels[tunnel.name] && ant.moving
 }
