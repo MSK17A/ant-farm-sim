@@ -55,7 +55,7 @@ func (farm *Farm) AntSim() {
 	}
 
 	fmt.Print(min_steps_string)
-	fmt.Printf("\nSolution found with %d steps", prev_steps)
+	fmt.Printf("\nSolution found with %d steps\n", prev_steps)
 }
 
 /* Custom iterations for Ant simulator */

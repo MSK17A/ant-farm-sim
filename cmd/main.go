@@ -18,6 +18,8 @@ func main() {
 	farm.InitFarm()
 	load_data.Read_Farm_File(args[0], &farm)
 	farm.InitDistances()
+	farm.PrintFarm()
+	fmt.Print("Solution:\n")
 	farm.AntBFS()
 	farm.AntSim()
 }
