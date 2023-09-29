@@ -2,23 +2,17 @@ package main
 
 import (
 	ants "ants/pkg/farm"
+	load_data "ants/pkg/farm_loading"
 )
 
 func main() {
 	var farm ants.Farm
+	farm.InitFarm()
+	load_data.Read_Farm_File("example.txt", &farm)
+	farm.InitDistances()
 
-	namla2(&farm)
-	/* Print farm */
-	//farm.PrintFarm()
 	farm.AntBFS()
-	//farm.PrintDistances()
-
 	farm.AntSim()
-	/*
-		fmt.Println("\nStep 5")
-		farm.AntSim_Step()
-		farm.Print_Ants_Locations()
-	*/
 }
 
 func namla5(farm *ants.Farm) {
@@ -31,9 +25,6 @@ func namla5(farm *ants.Farm) {
 	farm.AddRoom("6", "normal", 0, 0)
 	farm.AddRoom("7", "end", 0, 0)
 	//farm.AddRoom("8", "normal", 0, 0)
-	farm.InitTunnels()
-	farm.InitAnts(4)
-	farm.InitDistances()
 
 	farm.AddTunnel("1", "7", true)
 	farm.AddTunnel("1", "3", true)
@@ -48,6 +39,8 @@ func namla5(farm *ants.Farm) {
 	farm.AddTunnel("4", "5", true)
 	//farm.AddTunnel("1", "8", true)
 	//farm.AddTunnel("8", "7", true)
+	farm.InitAnts(4)
+	farm.InitDistances()
 }
 
 func namla4(farm *ants.Farm) {
