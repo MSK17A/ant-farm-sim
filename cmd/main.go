@@ -7,7 +7,7 @@ import (
 func main() {
 	var farm ants.Farm
 
-	namla5(&farm)
+	namla2(&farm)
 	/* Print farm */
 	//farm.PrintFarm()
 	farm.AntBFS()
