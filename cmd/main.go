@@ -32,7 +32,7 @@ func namla5(farm *ants.Farm) {
 	farm.AddRoom("7", "end", 0, 0)
 	//farm.AddRoom("8", "normal", 0, 0)
 	farm.InitTunnels()
-	farm.InitAnts(7)
+	farm.InitAnts(4)
 	farm.InitDistances()
 
 	farm.AddTunnel("1", "7", true)
@@ -44,6 +44,7 @@ func namla5(farm *ants.Farm) {
 	farm.AddTunnel("6", "7", true)
 	farm.AddTunnel("5", "7", true)
 	farm.AddTunnel("4", "2", true)
+	farm.AddTunnel("4", "6", true)
 	farm.AddTunnel("4", "5", true)
 	//farm.AddTunnel("1", "8", true)
 	//farm.AddTunnel("8", "7", true)

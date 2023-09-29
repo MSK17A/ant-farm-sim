@@ -10,7 +10,7 @@ func (farm *Farm) AntSim_Step() {
 	for ant_idx := range ants {
 
 		ant := ants[ant_idx]
-		alt_tun := farm.Find_Min_Path(ant, ant_idx)
+		alt_tun := farm.Find_Min_Path(ant, ant_idx+1)
 		if (alt_tun.is_empty || alt_tun.end) && !ant.discovered_rooms[alt_tun] && ant.moving && !ant.room.locked_tunnels[alt_tun.name] {
 			//ant.discovered_rooms[alt_tun] = true  // remember the next room
 			ant.room.locked_tunnels[alt_tun.name] = true // Lock the tunnel from beign used by other ant until step is finished
@@ -67,8 +67,8 @@ func (farm *Farm) Find_Min_Path(ant *Ant, ant_idx int) *Room {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
-		/* If this ant is last ant then wait till the short path is available */
-		if ant_idx == 6 && farm.distances[tunnel.room] <= min {
+		/* If these ant are last n ant then wait till the short path is available */
+		if ant_idx > 2 && farm.distances[tunnel.room] <= min {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
