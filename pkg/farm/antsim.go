@@ -68,7 +68,7 @@ func (farm *Farm) Find_Min_Path(ant *Ant, ant_idx int) *Room {
 			min = farm.distances[temp]
 		}
 		/* If this ant is last ant then wait till the short path is available */
-		if ant_idx > farm.number_of_ants-(Number_of_Tunnels(ant.room.tunnels)) && farm.distances[tunnel.room] <= min {
+		if ant_idx == 6 && farm.distances[tunnel.room] <= min {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
