@@ -80,12 +80,12 @@ func (farm *Farm) Find_Min_Path(ant *Ant, ant_idx int, ants_to_choose_to_take_sh
 
 	tunnel := ant.room.tunnels.head
 	for tunnel != nil {
-		if farm.distances[tunnel.room] <= min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] && !tunnel.room.start && !ant.room.locked_tunnels[tunnel.room.name] {
+		if farm.distances[tunnel.room] < min && (tunnel.room.is_empty || tunnel.room.end) && !ant.discovered_rooms[tunnel.room] && !tunnel.room.start && !ant.room.locked_tunnels[tunnel.room.name] {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
 		/* If these ant are last n ant then wait till the short path is available */
-		if ant_idx > ants_to_choose_to_take_short_path && farm.distances[tunnel.room] < min {
+		if ant_idx > ants_to_choose_to_take_short_path && farm.distances[tunnel.room] <= min {
 			temp = tunnel.room
 			min = farm.distances[temp]
 		}
