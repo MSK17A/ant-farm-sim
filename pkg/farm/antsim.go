@@ -5,14 +5,14 @@ import (
 )
 
 /* Starts the simulator with one step per call */
-func (farm *Farm) AntSim_Step(ants_to_choose_to_take_short_path int) {
+func (farm *Farm) AntSim_Step() {
 	ants := farm.ants
 
 	/* Loop throgh each ant */
 	for ant_idx := range ants {
 
 		ant := ants[ant_idx]
-		alt_tun := farm.Find_Min_Path(ant, ant_idx+1, ants_to_choose_to_take_short_path)
+		alt_tun := farm.Find_Min_Path(ant)
 		if check_moving_possiblity(ant, alt_tun) {
 			//ant.discovered_rooms[alt_tun] = true  // remember the next room
 			ant.room.locked_tunnels[alt_tun.name] = true // Lock the tunnel from beign used by other ant until step is finished
@@ -44,7 +44,7 @@ func (farm *Farm) AntSim() {
 		for !farm.Ants_At_End() {
 			step++
 			//fmt.Printf("\nAnts moves step %d:\n", Step)
-			farm.AntSim_Step(ant)
+			farm.AntSim_Step()
 			step_string += farm.Print_Ants_Locations()
 		}
 		if step < prev_steps {
@@ -65,7 +65,7 @@ func (farm *Farm) AntSim_Iter(iter int) {
 		Step := 1
 		for !farm.Ants_At_End() && iteration < iter {
 			fmt.Printf("\nAnts moves step %d:\n", Step)
-			farm.AntSim_Step(ant)
+			farm.AntSim_Step()
 			farm.Print_Ants_Locations()
 			Step++
 			iteration++
@@ -74,7 +74,7 @@ func (farm *Farm) AntSim_Iter(iter int) {
 }
 
 /* This function will find the minimum path the ant can take */
-func (farm *Farm) Find_Min_Path(ant *Ant, ant_idx int, ants_to_choose_to_take_short_path int) *Room {
+func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 	min := 9999
 	temp := ant.room.tunnels.head.room
 
@@ -83,10 +83,6 @@ func (farm *Farm) Find_Min_Path(ant *Ant, ant_idx int, ants_to_choose_to_take_sh
 		if farm.distances[tunnel.room] < min && check_moving_possiblity(ant, tunnel.room) {
 			temp = tunnel.room
 			min = farm.distances[temp]
-		}
-		if ant_idx > ants_to_choose_to_take_short_path && farm.distances[tunnel.room] <= min {
-			temp = tunnel.room
-			//min = farm.distances[temp]
 		}
 
 		/* If these ant are last n ant then wait till the short path is available */
@@ -97,4 +93,36 @@ func (farm *Farm) Find_Min_Path(ant *Ant, ant_idx int, ants_to_choose_to_take_sh
 
 func check_moving_possiblity(ant *Ant, tunnel *Room) bool {
 	return (tunnel.is_empty || tunnel.end) && !ant.discovered_rooms[tunnel] && !tunnel.start && !ant.room.locked_tunnels[tunnel.name] && ant.moving
+}
+
+func (farm *Farm) Sort_first_move_tunnels() *LinkedRoomsList {
+	tunnel := farm.start_room.tunnels.head
+	already_sorted := make(map[string]bool)
+	first_move_tunnels_sorted := &LinkedRoomsList{}
+	min := 99999
+	for tunnel != nil && !already_sorted[tunnel.room.name] && farm.distances[tunnel.room] <= min {
+		first_move_tunnels_sorted.AddToList(tunnel.room)
+		min = farm.distances[tunnel.room]
+		tunnel = tunnel.next
+	}
+
+	return first_move_tunnels_sorted
+}
+
+func (farm *Farm) Distribute_ant_starter() {
+	min_steps := 0
+	sorted_first_tunnels := farm.Sort_first_move_tunnels()
+	sorted_first_tunnels_steps_map := 
+	min_steps = farm.distances[sorted_first_tunnels.head.room]
+	sorted_temp := sorted_first_tunnels
+
+	for ant_idx := range farm.ants {
+		farm.ants[ant_idx].self_start = true
+		if farm.distances[sorted_temp.head.room] < farm.distances[sorted_temp.head.next.room] {
+			farm.ants[ant_idx].force_move_to_room = sorted_temp.head.room
+			min_steps++
+		} else {
+
+		}
+	}
 }
