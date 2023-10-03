@@ -110,19 +110,26 @@ func (farm *Farm) Sort_first_move_tunnels() *LinkedRoomsList {
 }
 
 func (farm *Farm) Distribute_ant_starter() {
-	min_steps := 0
+	//min_steps := 0
 	sorted_first_tunnels := farm.Sort_first_move_tunnels()
-	sorted_first_tunnels_steps_map := 
-	min_steps = farm.distances[sorted_first_tunnels.head.room]
-	sorted_temp := sorted_first_tunnels
+	sorted_head := sorted_first_tunnels.head
 
-	for ant_idx := range farm.ants {
-		farm.ants[ant_idx].self_start = true
-		if farm.distances[sorted_temp.head.room] < farm.distances[sorted_temp.head.next.room] {
-			farm.ants[ant_idx].force_move_to_room = sorted_temp.head.room
-			min_steps++
-		} else {
+	sorted_first_tunnels_steps := make(map[*Room]int)
+	for sorted_head != nil {
+		sorted_first_tunnels_steps[sorted_head.room] = farm.distances[sorted_head.room]
+		sorted_head = sorted_head.next
+	}
+	sorted_head = sorted_first_tunnels.head
 
+	for _, sorted_steps := range sorted_first_tunnels_steps {
+		/* loop through each ant */
+		for ant_idx := range farm.ants {
+			/* check if this tunnel distance steps is lower thant the next */
+			if sorted_steps < sorted_first_tunnels_steps[sorted_head.next.room] {
+				/* Force the ant to move */
+				farm.ants[ant_idx].self_start = true
+				farm.ants[ant_idx].force_move_to_room = sorted_head.room
+			}
 		}
 	}
 }
