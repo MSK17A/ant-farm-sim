@@ -19,8 +19,8 @@ func main() {
 	load_data.Read_Farm_File(args[0], &farm)
 	farm.InitDistances()
 	farm.PrintFarm()
-	antss := farm.Sort_first_move_tunnels()
-	fmt.Println(antss)
+	farm.AntBFS()
+	farm.Distribute_ant_starter()
 }
 
 // Functions below are used to test the logic
