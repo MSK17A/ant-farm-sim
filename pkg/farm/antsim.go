@@ -184,8 +184,5 @@ func (farm *Farm) same_distance_tunnels(ant *Ant) bool {
 		}
 		tunnel = tunnel.next
 	}
-	if similar_distance_count > 1 {
-		return true
-	}
-	return false
+	return similar_distance_count > 1
 }
