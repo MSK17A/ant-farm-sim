@@ -4,16 +4,53 @@ import (
 	"fmt"
 )
 
+/* used for ants */
+type antQueue struct {
+	items []*Ant
+}
+
+func (q *antQueue) enqueue(item *Ant) {
+	q.items = append(q.items, item)
+}
+
+func (q *antQueue) dequeue() *Ant {
+	if len(q.items) == 0 {
+		return nil // Queue is empty
+	}
+	item := q.items[0]
+	q.items = q.items[1:]
+	return item
+}
+
+var (
+	two_tunnels_hold = make(map[*Ant]bool)
+)
+
 /* Starts the simulator with one step per call */
 func (farm *Farm) AntSim_Step() {
 	ants := farm.ants
+	ant_queue := &antQueue{}
+	for ant_idx := range ants {
+		ant_queue.enqueue(ants[ant_idx])
+		two_tunnels_hold[farm.ants[ant_idx]] = false
+	}
 
 	/* Loop throgh each ant */
-	for ant_idx := range ants {
-
-		ant := ants[ant_idx]
+	ant := ant_queue.dequeue()
+	for ant != nil {
 		alt_tun := farm.Find_Min_Path(ant)
+		if ant.self_start {
+			alt_tun = ant.force_move_to_room
+			ant.self_start = false
+		}
 		if check_moving_possiblity(ant, alt_tun) {
+			if farm.same_distance_tunnels(ant) && !ant.room.start && !ant.room.end && !two_tunnels_hold[ant] {
+				fmt.Printf("Room: %s\n", ant.room.name)
+				ant_queue.enqueue(ant)
+				two_tunnels_hold[ant] = true
+				//ant = ant_queue.dequeue()
+				continue
+			}
 			//ant.discovered_rooms[alt_tun] = true  // remember the next room
 			ant.room.locked_tunnels[alt_tun.name] = true // Lock the tunnel from beign used by other ant until step is finished
 			ant.discovered_rooms[ant.room] = true        // remember the current room
@@ -22,40 +59,30 @@ func (farm *Farm) AntSim_Step() {
 			alt_tun.is_empty = false                     // flag next room as not empty
 			if ant.room.end {
 				ant.moving = false
-
 			}
 			ant.moved = true
 
 		}
+		ant = ant_queue.dequeue()
 	}
 	farm.Unlock_Locked_Tunnel()
 }
 
 /* Starts the simulator until all ants are at the end room */
 func (farm *Farm) AntSim() {
-	prev_steps := 999999
 	step_string := ""
-	min_steps_string := ""
 
-	for ant := 0; ant <= farm.number_of_ants; ant++ {
-
-		step := 0
-		step_string = ""
-		for !farm.Ants_At_End() {
-			step++
-			//fmt.Printf("\nAnts moves step %d:\n", Step)
-			farm.AntSim_Step()
-			step_string += farm.Print_Ants_Locations()
-		}
-		if step < prev_steps {
-			prev_steps = step
-			min_steps_string = step_string
-		}
-		farm.Re_InitAnts()
+	step := 0
+	step_string = ""
+	for !farm.Ants_At_End() {
+		step++
+		//fmt.Printf("\nAnts moves step %d:\n", Step)
+		farm.AntSim_Step()
+		step_string += farm.Print_Ants_Locations()
 	}
 
-	fmt.Print(min_steps_string)
-	fmt.Printf("\nSolution found with %d steps\n", prev_steps)
+	fmt.Print(step_string)
+	fmt.Printf("\nSolution found with %d steps\n", step)
 }
 
 /* Custom iterations for Ant simulator */
@@ -144,4 +171,21 @@ func (farm *Farm) Distribute_ant_starter() {
 
 		sorted_head = sorted_head.next
 	}
+}
+
+func (farm *Farm) same_distance_tunnels(ant *Ant) bool {
+	tunnel := ant.room.tunnels.head
+	distance := farm.distances[tunnel.room]
+	similar_distance_count := 0
+
+	for tunnel != nil {
+		if farm.distances[tunnel.room] == distance {
+			similar_distance_count++
+		}
+		tunnel = tunnel.next
+	}
+	if similar_distance_count > 1 {
+		return true
+	}
+	return false
 }

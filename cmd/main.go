@@ -21,6 +21,8 @@ func main() {
 	farm.PrintFarm()
 	farm.AntBFS()
 	farm.Distribute_ant_starter()
+
+	farm.AntSim()
 }
 
 // Functions below are used to test the logic
