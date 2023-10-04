@@ -31,5 +31,6 @@ func (farm *Farm) InitTunnels() {
 	for room_idx := range farm.rooms {
 		farm.rooms[room_idx].tunnels = &LinkedRoomsList{}
 		farm.rooms[room_idx].locked_tunnels = make(map[string]bool)
+		farm.rooms[room_idx].dead_end = true
 	}
 }

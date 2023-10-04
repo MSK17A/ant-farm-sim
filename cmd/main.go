@@ -20,9 +20,10 @@ func main() {
 	farm.InitDistances()
 	farm.PrintFarm()
 	farm.AntBFS()
-	farm.Distribute_ant_starter()
+	farm.AntDFS(farm.Get_start_room_tunnels())
+	//farm.Distribute_ant_starter()
 
-	farm.AntSim()
+	//farm.AntSim()
 }
 
 // Functions below are used to test the logic

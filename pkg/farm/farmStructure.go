@@ -10,6 +10,7 @@ type Room struct {
 	name               string
 	locked_tunnels     map[string]bool
 	first_go_to_tunnel *Room
+	dead_end           bool
 }
 
 type Ant struct {
@@ -28,4 +29,8 @@ type Farm struct {
 	ants           []*Ant
 	start_room     *Room
 	end_room       *Room
+}
+
+func (farm *Farm) Get_start_room_tunnels() *RoomNode {
+	return farm.start_room.tunnels.head
 }
