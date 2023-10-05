@@ -119,7 +119,7 @@ func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 }
 
 func check_moving_possiblity(ant *Ant, tunnel *Room) bool {
-	return (tunnel.is_empty || tunnel.end) && !ant.discovered_rooms[tunnel] && !tunnel.start && !ant.room.locked_tunnels[tunnel.name] && ant.moving
+	return (tunnel.is_empty || tunnel.end) && !ant.discovered_rooms[tunnel] && !tunnel.start && !ant.room.locked_tunnels[tunnel.name] && ant.moving && !tunnel.dead_end
 }
 
 func (farm *Farm) Sort_first_move_tunnels() *LinkedRoomsList {
@@ -161,7 +161,7 @@ func (farm *Farm) Distribute_ant_starter() {
 		/* loop through each ant */
 		for ant_idx := range farm.ants {
 			/* check if this tunnel distance steps is lower than the next */
-			if sorted_first_tunnels_steps[sorted_head.room] <= sorted_first_tunnels_steps[sorted_head.next.room] && !farm.ants[ant_idx].self_start {
+			if sorted_first_tunnels_steps[sorted_head.room]+1 <= sorted_first_tunnels_steps[sorted_head.next.room] && !farm.ants[ant_idx].self_start {
 				/* Force the ant to move */
 				farm.ants[ant_idx].self_start = true
 				farm.ants[ant_idx].force_move_to_room = sorted_head.room

@@ -7,19 +7,16 @@ func (farm *Farm) AntBFS() {
 
 	queue.Enqueue(farm.end_room)
 	room := queue.Dequeue()
-	farm.distances[room] = 1
+	farm.distances[room] = 0
 	visited[room] = true // added to visited list
 
 	for room != nil {
 		tunnel := room.tunnels.head
 		for tunnel != nil {
-			if !discovered[tunnel.room] {
-				if farm.distances[room]+1 <= farm.distances[tunnel.room] {
-					farm.distances[tunnel.room] = farm.distances[room] + 1
-					queue.Enqueue(tunnel.room)
-				}
-				visited[tunnel.room] = true
+			if !visited[tunnel.room] {
 				queue.Enqueue(tunnel.room)
+				visited[tunnel.room] = true
+				farm.distances[tunnel.room] = farm.distances[room] + 1
 			}
 			tunnel = tunnel.next
 		}

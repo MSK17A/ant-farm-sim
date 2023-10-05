@@ -5,7 +5,7 @@ room_1 0 1
 room_2 1 0
 room_3 0 2
 room_4 4 4
-room_5 5 5
+
 room_6 6 6
 room_7 7 7
 room_8 8 8
@@ -17,7 +17,7 @@ room_0-room_2
 room_1-room_3
 room_1-room_4
 room_3-room_4
-room_2-room_5
+
 room_2-room_4
 room_4-room_9
 room_3-room_6
