@@ -159,57 +159,6 @@ func check_moving_possiblity(ant *Ant, tunnel *Room) bool {
 	return (tunnel.is_empty || tunnel.end) && !ant.discovered_rooms[tunnel] && !tunnel.start && !ant.room.locked_tunnels[tunnel.name] && ant.moving && !tunnel.dead_end
 }
 
-/*func (farm *Farm) Sort_first_move_tunnels() *LinkedRoomsList {
-	tunnel := farm.start_room.tunnels.head
-	already_sorted := make(map[string]bool)
-	first_move_tunnels_sorted := &LinkedRoomsList{}
-	min := 99999
-	tunnels_outer_looper := farm.start_room.tunnels.head
-	for tunnels_outer_looper != nil {
-		for tunnel != nil && !already_sorted[tunnel.room.name] && farm.distances[tunnel.room] <= min {
-			first_move_tunnels_sorted.AddToList(tunnel.room)
-			min = farm.distances[tunnel.room]
-			already_sorted[tunnel.room.name] = true
-			tunnel = tunnel.next
-		}
-		min = 99999
-		tunnels_outer_looper = tunnels_outer_looper.next
-	}
-
-	return first_move_tunnels_sorted
-}*/
-
-/*func (farm *Farm) Distribute_ant_starter() {
-	//min_steps := 0
-	sorted_first_tunnels := farm.Sort_first_move_tunnels()
-	sorted_head := sorted_first_tunnels.head
-
-	sorted_first_tunnels_steps := make(map[*Room]int)
-	for sorted_head != nil {
-		sorted_first_tunnels_steps[sorted_head.room] = farm.distances[sorted_head.room]
-		sorted_head = sorted_head.next
-	}
-	sorted_head = sorted_first_tunnels.head
-
-	for range sorted_first_tunnels_steps {
-		if sorted_head.next == nil {
-			break
-		}
-		// loop through each ant
-		for ant_idx := range farm.ants {
-			// check if this tunnel distance steps is lower than the next
-			if sorted_first_tunnels_steps[sorted_head.room] < sorted_first_tunnels_steps[sorted_head.next.room] && !farm.ants[ant_idx].self_start {
-				// Force the ant to move
-				farm.ants[ant_idx].self_start = true
-				farm.ants[ant_idx].force_move_to_room = sorted_head.room
-				sorted_first_tunnels_steps[sorted_head.room]++
-			}
-		}
-
-		sorted_head = sorted_head.next
-	}
-}*/
-
 func (farm *Farm) same_distance_tunnels(ant *Ant) bool {
 	tunnel := ant.room.tunnels.head
 	similar_distance_count := 0

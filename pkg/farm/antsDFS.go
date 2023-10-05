@@ -3,8 +3,7 @@ package farm
 import "fmt"
 
 var (
-	visited    = make(map[string]bool)
-	discovered = make(map[string]bool)
+	visited = make(map[string]bool)
 )
 
 /* Depth First Search with marking dead end tunnels */
