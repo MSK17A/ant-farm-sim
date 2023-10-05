@@ -14,6 +14,7 @@ type Room struct {
 }
 
 type Ant struct {
+	ant_number         int
 	room               *Room
 	discovered_rooms   map[*Room]bool
 	moving             bool

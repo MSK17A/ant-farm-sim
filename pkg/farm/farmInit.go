@@ -18,6 +18,7 @@ func (farm *Farm) InitAnts(ants_number int) {
 		farm.ants[i].discovered_rooms = make(map[*Room]bool)
 		farm.ants[i].discovered_rooms[farm.start_room] = false
 		farm.ants[i].moving = true
+		farm.ants[i].ant_number = i + 1
 	}
 }
 
