@@ -66,8 +66,8 @@ func (farm *Farm) AntSim_Step(toggler bool) {
 		} else {
 			/* Will cause the ant to hold in one place so that in the next step when the tunnel is empty, it will take it */
 			farm.distances[alt_tun]++
-			ant.room.locked_tunnels[alt_tun.name] = true
 		}
+
 		ant = ant_queue.dequeue()
 	}
 	//farm.PrintDistances()
