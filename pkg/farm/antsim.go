@@ -25,13 +25,7 @@ func (farm *Farm) AntSim_Step() {
 		alt_tun := farm.Find_Min_Path(ants_to_work_on[ant_idx])
 
 		if check_moving_possiblity(ants_to_work_on[ant_idx], alt_tun) {
-			/*if farm.same_distance_tunnels(ant) && !ant.room.start && !ant.room.end && !two_tunnels_hold[ant] {
-				fmt.Printf("Room: %s\n", ant.room.name)
-				ant_queue.Enqueue(ant)
-				two_tunnels_hold[ant] = true
-				//ant = ant_queue.dequeue()
-				continue
-			}*/
+
 			farm.distances[alt_tun]++
 			ants_to_work_on[ant_idx].room.locked_tunnels[alt_tun.name] = true               // Lock the tunnel from beign used by other ant until step is finished
 			ants_to_work_on[ant_idx].discovered_rooms[ants_to_work_on[ant_idx].room] = true // remember the current room
@@ -64,13 +58,6 @@ func (farm *Farm) AntSim_Step() {
 		alt_tun := farm.Find_Min_Path(check_once_again[ant_idx])
 
 		if check_moving_possiblity(check_once_again[ant_idx], alt_tun) && check_once_again[ant_idx].check_again {
-			/*if farm.same_distance_tunnels(ant) && !ant.room.start && !ant.room.end && !two_tunnels_hold[ant] {
-				fmt.Printf("Room: %s\n", ant.room.name)
-				ant_queue.Enqueue(ant)
-				two_tunnels_hold[ant] = true
-				//ant = ant_queue.dequeue()
-				continue
-			}*/
 			farm.distances[alt_tun]++
 			check_once_again[ant_idx].room.locked_tunnels[alt_tun.name] = true                // Lock the tunnel from beign used by other ant until step is finished
 			check_once_again[ant_idx].discovered_rooms[check_once_again[ant_idx].room] = true // remember the current room
