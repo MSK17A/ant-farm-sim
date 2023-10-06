@@ -5,10 +5,6 @@ import (
 	"sort"
 )
 
-var (
-	two_tunnels_hold = make(map[*Ant]bool)
-)
-
 /* Starts the simulator with one step per call */
 func (farm *Farm) AntSim_Step() {
 	ants_to_work_on := make([]*Ant, farm.number_of_ants)
