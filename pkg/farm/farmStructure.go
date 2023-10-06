@@ -18,6 +18,7 @@ type Ant struct {
 	discovered_rooms map[*Room]bool
 	moving           bool
 	moved            bool
+	check_again      bool
 }
 
 type Farm struct {
