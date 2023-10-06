@@ -20,6 +20,7 @@ func (farm *Farm) AntBFS() {
 				}
 				visited[tunnel.room] = true
 				farm.distances[tunnel.room] = farm.distances[room] + 1
+
 			}
 			tunnel = tunnel.next
 		}
