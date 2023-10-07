@@ -23,7 +23,7 @@ func main() {
 	//farm.AntDFS(farm.Get_start_room_tunnels())
 	//farm.Distribute_ant_starter()
 	farm.PrintDistances()
-	farm.AntSim()
+	farm.AntSim_Iter(50)
 }
 
 // Functions below are used to test the logic

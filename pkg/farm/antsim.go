@@ -23,6 +23,7 @@ func (farm *Farm) AntSim_Step() {
 		if check_moving_possiblity(ants_to_work_on[ant_idx], alt_tun) {
 
 			farm.distances[alt_tun]++
+
 			ants_to_work_on[ant_idx].room.locked_tunnels[alt_tun.name] = true               // Lock the tunnel from beign used by other ant until step is finished
 			ants_to_work_on[ant_idx].discovered_rooms[ants_to_work_on[ant_idx].room] = true // remember the current room
 			ants_to_work_on[ant_idx].room.is_empty = true                                   // flag current room as empty
@@ -54,7 +55,9 @@ func (farm *Farm) AntSim_Step() {
 		alt_tun := farm.Find_Min_Path(check_once_again[ant_idx])
 
 		if check_moving_possiblity(check_once_again[ant_idx], alt_tun) && check_once_again[ant_idx].check_again {
+
 			farm.distances[alt_tun]++
+
 			check_once_again[ant_idx].room.locked_tunnels[alt_tun.name] = true                // Lock the tunnel from beign used by other ant until step is finished
 			check_once_again[ant_idx].discovered_rooms[check_once_again[ant_idx].room] = true // remember the current room
 			check_once_again[ant_idx].room.is_empty = true                                    // flag current room as empty
@@ -71,7 +74,7 @@ func (farm *Farm) AntSim_Step() {
 		}
 	}
 
-	//farm.PrintDistances()
+	farm.PrintDistances()
 	farm.Unlock_Locked_Tunnel()
 	farm.AntBFS()
 
