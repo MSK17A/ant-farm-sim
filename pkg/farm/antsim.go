@@ -47,6 +47,7 @@ func (farm *Farm) AntSim_Step() {
 			}
 
 		}
+
 	}
 
 	/* Ants with less tunnels will go first */
@@ -58,7 +59,7 @@ func (farm *Farm) AntSim_Step() {
 	for ant_idx := range check_once_again {
 		alt_tun := farm.Find_Min_Path(check_once_again[ant_idx])
 
-		if check_moving_possiblity(check_once_again[ant_idx], alt_tun) && check_once_again[ant_idx].check_again {
+		if check_moving_possiblity(check_once_again[ant_idx], alt_tun) {
 			if alt_tun != farm.end_room || check_once_again[ant_idx].room.start {
 				farm.distances[alt_tun]++
 			}
