@@ -22,7 +22,9 @@ func (farm *Farm) AntSim_Step() {
 
 		if check_moving_possiblity(ants_to_work_on[ant_idx], alt_tun) {
 
-			farm.distances[alt_tun]++
+			if alt_tun != farm.end_room || ants_to_work_on[ant_idx].room.start {
+				farm.distances[alt_tun]++
+			}
 
 			ants_to_work_on[ant_idx].room.locked_tunnels[alt_tun.name] = true               // Lock the tunnel from beign used by other ant until step is finished
 			ants_to_work_on[ant_idx].discovered_rooms[ants_to_work_on[ant_idx].room] = true // remember the current room
@@ -36,7 +38,9 @@ func (farm *Farm) AntSim_Step() {
 
 		} else {
 			/* Will cause the ant to hold in one place so that in the next step when the tunnel is empty, it will take it */
-			farm.distances[alt_tun]++
+			if alt_tun != farm.end_room || ants_to_work_on[ant_idx].room.start {
+				farm.distances[alt_tun]++
+			}
 			if !ants_to_work_on[ant_idx].check_again {
 				ants_to_work_on[ant_idx].check_again = true
 				check_once_again = append(check_once_again, ants_to_work_on[ant_idx])
@@ -55,8 +59,9 @@ func (farm *Farm) AntSim_Step() {
 		alt_tun := farm.Find_Min_Path(check_once_again[ant_idx])
 
 		if check_moving_possiblity(check_once_again[ant_idx], alt_tun) && check_once_again[ant_idx].check_again {
-
-			farm.distances[alt_tun]++
+			if alt_tun != farm.end_room || check_once_again[ant_idx].room.start {
+				farm.distances[alt_tun]++
+			}
 
 			check_once_again[ant_idx].room.locked_tunnels[alt_tun.name] = true                // Lock the tunnel from beign used by other ant until step is finished
 			check_once_again[ant_idx].discovered_rooms[check_once_again[ant_idx].room] = true // remember the current room
@@ -70,7 +75,9 @@ func (farm *Farm) AntSim_Step() {
 
 		} else {
 			/* Will cause the ant to hold in one place so that in the next step when the tunnel is empty, it will take it */
-			farm.distances[alt_tun]++
+			if alt_tun != farm.end_room || check_once_again[ant_idx].room.start {
+				farm.distances[alt_tun]++
+			}
 		}
 	}
 
@@ -128,6 +135,7 @@ func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 		if farm.distances[tunnel.room] <= min && !ant.discovered_rooms[tunnel.room] {
 			temp = tunnel.room
 			min = farm.distances[temp]
+
 		}
 
 		tunnel = tunnel.next
