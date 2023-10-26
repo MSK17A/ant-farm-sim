@@ -18,7 +18,7 @@ func (farm *Farm) AntSim_Step() {
 
 	/* Loop throgh each ant */
 	ant_idx := 0
-	for ant_idx != len(ants_to_work_on) {
+	for ant_idx < len(ants_to_work_on) {
 		alt_tun := farm.Find_Min_Path(ants_to_work_on[ant_idx])
 		if check_moving_possiblity(ants_to_work_on[ant_idx], alt_tun) {
 
