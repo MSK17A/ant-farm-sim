@@ -47,10 +47,9 @@ func (farm *Farm) AntSim_Step() {
 		}
 		ant_idx++
 	}
-
 	/* Ants with less tunnels will go first */
 	sort.SliceStable(check_once_again, func(i, j int) bool {
-		return farm.same_distance_tunnels(check_once_again[i]) <= farm.same_distance_tunnels(check_once_again[j])
+		return farm.same_distance_tunnels(check_once_again[i]) >= farm.same_distance_tunnels(check_once_again[j])
 	})
 	/* Loop throgh each ant once again */
 	for ant_idx := range check_once_again {
