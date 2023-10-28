@@ -16,7 +16,13 @@ func main() {
 	}
 	var farm ants.Farm
 	farm.InitFarm()
-	load_data.Read_Farm_File(args[0], &farm)
+	if !load_data.Read_Farm_File(args[0], &farm) {
+		return
+	}
+	if !farm.Unique_Positions() {
+		fmt.Println("Similar positions detected!")
+		return
+	}
 	farm.InitDistances()
 	farm.AntBFS()
 	farm.PrintFarm()

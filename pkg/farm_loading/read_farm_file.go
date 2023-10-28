@@ -16,7 +16,7 @@ func check(e error) {
 	}
 }
 
-func Read_Farm_File(file_path string, farm *farm.Farm) {
+func Read_Farm_File(file_path string, farm *farm.Farm) bool {
 	file, err := os.Open(file_path)
 	check(err)
 
@@ -79,7 +79,10 @@ func Read_Farm_File(file_path string, farm *farm.Farm) {
 
 		if strings.Contains(scanner.Text(), "-") && strings.Count(scanner.Text(), "-") == 1 {
 			args := strings.Split(scanner.Text(), "-")
-			farm.AddTunnel(args[0], args[1], true)
+			if !farm.AddTunnel(args[0], args[1], true) {
+				fmt.Println("Error in add tunnel")
+				return false
+			}
 			continue
 		}
 
@@ -99,4 +102,5 @@ func Read_Farm_File(file_path string, farm *farm.Farm) {
 		os.Exit(0)
 	}
 	farm.InitAnts(n_of_ants)
+	return true
 }
