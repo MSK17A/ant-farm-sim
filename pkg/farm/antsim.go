@@ -2,6 +2,7 @@ package farm
 
 import (
 	"fmt"
+	"os"
 	"sort"
 )
 
@@ -50,6 +51,10 @@ func (farm *Farm) AntSim_Step() {
 	}
 	// for debuggin purposes
 	//farm.PrintDistances()
+	if farm.Ants_Overlap() {
+		fmt.Println("Ants overlaps!!!")
+		os.Exit(0)
+	}
 	farm.Unlock_Locked_Tunnel()
 	farm.AntBFS()
 
@@ -133,4 +138,17 @@ func (farm *Farm) same_distance_tunnels(ant *Ant) int {
 	}
 
 	return similar_distance_count
+}
+
+func (farm *Farm) Ants_Overlap() bool {
+	for _, ant := range farm.ants {
+		for _, next_ant := range farm.ants {
+			if ant.ant_number != next_ant.ant_number {
+				if ant.room.name == next_ant.room.name && ant.room != farm.start_room && ant.room != farm.end_room && next_ant.room != farm.start_room && next_ant.room != farm.end_room {
+					return true
+				}
+			}
+		}
+	}
+	return false
 }
