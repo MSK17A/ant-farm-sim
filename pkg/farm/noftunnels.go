@@ -1,5 +1,6 @@
 package farm
 
+/* Counts number of tunnels a room is connected to. (Counts tunnels that are going to the end room */
 func (farm *Farm) Number_of_Tunnels(room *Room) int {
 
 	counter := 0

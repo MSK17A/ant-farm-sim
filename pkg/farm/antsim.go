@@ -16,7 +16,7 @@ func (farm *Farm) AntSim_Step() {
 
 	/* Ants with less tunnels will go first */
 	sort.SliceStable(ants_to_work_on, func(i, j int) bool {
-		return farm.same_distance_tunnels(ants_to_work_on[i]) < farm.same_distance_tunnels(ants_to_work_on[j])
+		return farm.Number_of_Tunnels(ants_to_work_on[i].room) < farm.Number_of_Tunnels(ants_to_work_on[j].room)
 	})
 
 	/* Loop throgh each ant */
@@ -48,8 +48,8 @@ func (farm *Farm) AntSim_Step() {
 		}
 
 	}
-
-	farm.PrintDistances()
+	// for debuggin purposes
+	//farm.PrintDistances()
 	farm.Unlock_Locked_Tunnel()
 	farm.AntBFS()
 
