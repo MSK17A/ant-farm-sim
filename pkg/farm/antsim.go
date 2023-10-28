@@ -14,20 +14,21 @@ func (farm *Farm) AntSim_Step() {
 	ants_to_work_on := make([]*Ant, farm.number_of_ants)
 	copy(ants_to_work_on, farm.ants)
 
-	/* Ants with less tunnels will go first , uncomment this*/
+	/* Ants with less tunnels will go first */
 	sort.SliceStable(ants_to_work_on, func(i, j int) bool {
-		return farm.same_distance_tunnels(ants_to_work_on[i]) <= farm.same_distance_tunnels(ants_to_work_on[j])
+		return farm.same_distance_tunnels(ants_to_work_on[i]) < farm.same_distance_tunnels(ants_to_work_on[j])
 	})
 
 	/* Loop throgh each ant */
 	for ant_idx := 0; ant_idx < len(ants_to_work_on); ant_idx++ {
 		alt_tun := farm.Find_Min_Path(ants_to_work_on[ant_idx])
 
+		/* Will cause the ant to hold in one place so that in the next step when the tunnel is empty, it will take it */
+		/* Distance of steps is increased because one ant has taken this path, or will take it in the next step */
+		if alt_tun != farm.end_room || ants_to_work_on[ant_idx].room.start {
+			farm.distances[alt_tun]++
+		}
 		if check_moving_possiblity(ants_to_work_on[ant_idx], alt_tun) {
-
-			if alt_tun != farm.end_room || ants_to_work_on[ant_idx].room.start {
-				farm.distances[alt_tun]++
-			}
 
 			ants_to_work_on[ant_idx].room.locked_tunnels[alt_tun.name] = true               // Lock the tunnel from beign used by other ant until step is finished
 			ants_to_work_on[ant_idx].discovered_rooms[ants_to_work_on[ant_idx].room] = true // remember the current room
@@ -39,12 +40,6 @@ func (farm *Farm) AntSim_Step() {
 			}
 			ants_to_work_on[ant_idx].moved = true
 			one_ant_moved = true
-		} else {
-			/* Will cause the ant to hold in one place so that in the next step when the tunnel is empty, it will take it */
-			if alt_tun != farm.end_room || ants_to_work_on[ant_idx].room.start {
-				farm.distances[alt_tun]++
-			}
-
 		}
 
 		if ant_idx == len(ants_to_work_on)-1 && one_ant_moved {
@@ -116,10 +111,12 @@ func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
 	return temp
 }
 
+/* Checks the possibility of the ant to take a specified tunnel */
 func check_moving_possiblity(ant *Ant, tunnel *Room) bool {
 	return (tunnel.is_empty || tunnel.end) && !ant.discovered_rooms[tunnel] && !tunnel.start && !ant.room.locked_tunnels[tunnel.name] && ant.moving && !tunnel.dead_end && !ant.moved
 }
 
+/* Counts the tunnels that have same distance */
 func (farm *Farm) same_distance_tunnels(ant *Ant) int {
 	tunnel := ant.room.tunnels.head
 	similar_distance_count := 0
