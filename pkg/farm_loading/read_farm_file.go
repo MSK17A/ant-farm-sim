@@ -12,6 +12,7 @@ import (
 func check(e error) {
 	if e != nil {
 		fmt.Println(e)
+		os.Exit(0)
 	}
 }
 
@@ -94,7 +95,8 @@ func Read_Farm_File(file_path string, farm *farm.Farm) {
 		farm.AddRoom(name, "normal", pos_x, pos_y)
 	}
 	if n_of_ants == 0 {
-		fmt.Println("No Ants!!!")
+		fmt.Println("ERROR: invalid data format - No Ants!!!")
+		os.Exit(0)
 	}
 	farm.InitAnts(n_of_ants)
 }

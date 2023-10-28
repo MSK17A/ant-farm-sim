@@ -1,5 +1,10 @@
 package farm
 
+import (
+	"fmt"
+	"os"
+)
+
 func (farm *Farm) AntBFS() {
 	queue := &Queue{}
 	discovered := make(map[*Room]bool)
@@ -24,10 +29,18 @@ func (farm *Farm) AntBFS() {
 				}
 
 			}
+			if tunnel.room == farm.start_room {
+				discovered[tunnel.room] = true
+			}
 			tunnel = tunnel.next
 		}
 		//fmt.Println(room.name)
 		discovered[room] = true
 		room = queue.Dequeue()
+
+	}
+	if !discovered[farm.start_room] {
+		fmt.Println("ERROR: invalid data format - no tunnel connection between start and end")
+		os.Exit(0)
 	}
 }
