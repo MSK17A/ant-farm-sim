@@ -2,7 +2,6 @@ package farm
 
 import (
 	"fmt"
-	"os"
 	"sort"
 )
 
@@ -44,17 +43,16 @@ func (farm *Farm) AntSim_Step() {
 		}
 
 		if ant_idx == len(ants_to_work_on)-1 && one_ant_moved {
-			ant_idx = 0
+			ant_idx = -1
 			one_ant_moved = false
 		}
-
 	}
 	// for debuggin purposes
 	//farm.PrintDistances()
-	if farm.Ants_Overlap() {
+	/*if farm.Ants_Overlap() {
 		fmt.Println("Ants overlaps!!!")
 		os.Exit(0)
-	}
+	}*/
 	farm.Unlock_Locked_Tunnel()
 	farm.AntBFS()
 
