@@ -2,7 +2,6 @@ package farm
 
 import (
 	"fmt"
-	"os"
 	"sort"
 )
 
@@ -11,7 +10,7 @@ var (
 )
 
 /* Starts the simulator with one step per call */
-func (farm *Farm) AntSim_Step() {
+func (farm *Farm) AntSim_Step(toggle bool) {
 	ants_to_work_on := make([]*Ant, farm.number_of_ants)
 	copy(ants_to_work_on, farm.ants)
 
@@ -22,7 +21,7 @@ func (farm *Farm) AntSim_Step() {
 
 	/* Loop throgh each ant */
 	for ant_idx := 0; ant_idx < len(ants_to_work_on); ant_idx++ {
-		alt_tun := farm.Find_Min_Path(ants_to_work_on[ant_idx])
+		alt_tun := farm.Find_Min_Path(ants_to_work_on[ant_idx], toggle)
 
 		/* Will cause the ant to hold in one place so that in the next step when the tunnel is empty, it will take it */
 		/* Distance of steps is increased because one ant has taken this path, or will take it in the next step */
@@ -44,17 +43,16 @@ func (farm *Farm) AntSim_Step() {
 		}
 
 		if ant_idx == len(ants_to_work_on)-1 && one_ant_moved {
-			ant_idx = 0
+			ant_idx = -1
 			one_ant_moved = false
 		}
-
 	}
 	// for debuggin purposes
 	//farm.PrintDistances()
-	if farm.Ants_Overlap() {
+	/*if farm.Ants_Overlap() {
 		fmt.Println("Ants overlaps!!!")
 		os.Exit(0)
-	}
+	}*/
 	farm.Unlock_Locked_Tunnel()
 	farm.AntBFS()
 
@@ -62,25 +60,48 @@ func (farm *Farm) AntSim_Step() {
 
 /* Starts the simulator until all ants are at the end room */
 func (farm *Farm) AntSim() {
+	toggler_on_steps := 0
+	toggler_off_steps := 0
+	toggler_on_string := ""
+	toggler_off_string := ""
 
-	step_string := ""
 	step := 0
+	/*step_string := ""
+	step := 0*/
 	for !farm.Ants_At_End() {
 		step++
+		toggler_on_steps++
 		//fmt.Printf("\nAnts moves step %d:\n", Step)
-		farm.AntSim_Step()
-		step_string += farm.Print_Ants_Locations()
+
+		farm.AntSim_Step(true)
+		toggler_on_string += farm.Print_Ants_Locations()
 	}
 
-	fmt.Print(step_string)
-	fmt.Printf("\nSolution found with %d steps\n", step)
+	farm.Re_InitAnts()
+	for !farm.Ants_At_End() {
+		toggler_off_steps++
+		//fmt.Printf("\nAnts moves step %d:\n", Step)
+		farm.AntSim_Step(false)
+		toggler_off_string += farm.Print_Ants_Locations()
+	}
+
+	if toggler_off_steps == toggler_on_steps {
+		fmt.Print(toggler_on_string)
+		fmt.Printf("\nSolution found with %d steps\n", toggler_on_steps)
+	} else if toggler_off_steps < toggler_on_steps {
+		fmt.Print(toggler_off_string)
+		fmt.Printf("\nSolution found with %d steps\n", toggler_off_steps)
+	} else {
+		fmt.Print(toggler_on_string)
+		fmt.Printf("\nSolution found with %d steps\n", toggler_on_steps)
+	}
 
 	/*fmt.Print(step_string)
 	fmt.Printf("\nSolution found with %d steps\n", step)*/
 }
 
 /* Custom iterations for Ant simulator */
-func (farm *Farm) AntSim_Iter(iter int) {
+/*func (farm *Farm) AntSim_Iter(iter int) {
 	iteration := 0
 	step_string := ""
 	step := 0
@@ -95,20 +116,28 @@ func (farm *Farm) AntSim_Iter(iter int) {
 	}
 	fmt.Print(step_string)
 	fmt.Printf("\nSolution found with %d steps\n", step)
-}
+}*/
 
 /* This function will find the minimum path the ant can take */
-func (farm *Farm) Find_Min_Path(ant *Ant) *Room {
+func (farm *Farm) Find_Min_Path(ant *Ant, toggle bool) *Room {
 	min := 9999
 	temp := ant.room.tunnels.head.room
 
 	tunnel := ant.room.tunnels.head
 	for tunnel != nil {
 
-		if farm.distances[tunnel.room] <= min && !ant.discovered_rooms[tunnel.room] {
-			temp = tunnel.room
-			min = farm.distances[temp]
+		if toggle {
+			if farm.distances[tunnel.room] <= min && !ant.discovered_rooms[tunnel.room] {
+				temp = tunnel.room
+				min = farm.distances[temp]
 
+			}
+		} else {
+			if farm.distances[tunnel.room] < min && !ant.discovered_rooms[tunnel.room] {
+				temp = tunnel.room
+				min = farm.distances[temp]
+
+			}
 		}
 
 		tunnel = tunnel.next
