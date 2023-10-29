@@ -68,24 +68,25 @@ func (farm *Farm) AntSim() {
 	step := 0
 	/*step_string := ""
 	step := 0*/
-	for !farm.Ants_At_End() {
-		step++
-		toggler_on_steps++
-		//fmt.Printf("\nAnts moves step %d:\n", Step)
-		// stop the infinite loop
-		if toggler_on_steps > 9999 {
-			break
-		}
-		farm.AntSim_Step(true)
-		toggler_on_string += farm.Print_Ants_Locations()
-	}
 
-	farm.Re_InitAnts()
 	for !farm.Ants_At_End() {
 		toggler_off_steps++
 		//fmt.Printf("\nAnts moves step %d:\n", Step)
 		farm.AntSim_Step(false)
 		toggler_off_string += farm.Print_Ants_Locations()
+	}
+
+	farm.Re_InitAnts()
+	for !farm.Ants_At_End() {
+		step++
+		toggler_on_steps++
+		//fmt.Printf("\nAnts moves step %d:\n", Step)
+		// stop the infinite loop
+		if toggler_on_steps > toggler_off_steps {
+			break
+		}
+		farm.AntSim_Step(true)
+		toggler_on_string += farm.Print_Ants_Locations()
 	}
 
 	if toggler_off_steps == toggler_on_steps {
