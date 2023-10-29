@@ -43,7 +43,7 @@ func (farm *Farm) AntSim_Step(toggle bool) {
 		}
 
 		if ant_idx == len(ants_to_work_on)-1 && one_ant_moved {
-			ant_idx = -1
+			ant_idx = 0
 			one_ant_moved = false
 		}
 	}
@@ -72,7 +72,10 @@ func (farm *Farm) AntSim() {
 		step++
 		toggler_on_steps++
 		//fmt.Printf("\nAnts moves step %d:\n", Step)
-
+		// stop the infinite loop
+		if toggler_on_steps > 9999 {
+			break
+		}
 		farm.AntSim_Step(true)
 		toggler_on_string += farm.Print_Ants_Locations()
 	}
@@ -127,13 +130,13 @@ func (farm *Farm) Find_Min_Path(ant *Ant, toggle bool) *Room {
 	for tunnel != nil {
 
 		if toggle {
-			if farm.distances[tunnel.room] <= min && !ant.discovered_rooms[tunnel.room] {
+			if farm.distances[tunnel.room] < min && !ant.discovered_rooms[tunnel.room] {
 				temp = tunnel.room
 				min = farm.distances[temp]
 
 			}
 		} else {
-			if farm.distances[tunnel.room] < min && !ant.discovered_rooms[tunnel.room] {
+			if farm.distances[tunnel.room] <= min && !ant.discovered_rooms[tunnel.room] {
 				temp = tunnel.room
 				min = farm.distances[temp]
 
