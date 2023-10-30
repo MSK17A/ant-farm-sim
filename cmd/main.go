@@ -21,7 +21,7 @@ func main() {
 		return
 	}
 	if !farm.Unique_Positions() {
-		fmt.Println("Similar positions detected!")
+		fmt.Println("ERROR: invalid data format")
 		return
 	}
 	farm.InitDistances()
