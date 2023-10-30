@@ -16,19 +16,20 @@ func check(e error) {
 	}
 }
 
-func Read_Farm_File(file_path string, farm *farm.Farm) bool {
+func Read_Farm_File(file_path string, farm *farm.Farm) (bool, string) {
 	file, err := os.Open(file_path)
 	check(err)
+	data := ""
 
 	defer file.Close()
 	line_number := 0
-
 	scanner := bufio.NewScanner(file)
 	start_flag := false
 	end_flag := false
 	n_of_ants := 0
 
 	for scanner.Scan() {
+		data += scanner.Text() + "\n"
 		line_number++
 		if line_number == 1 {
 			n_of_ants_line_fields := strings.Fields(scanner.Text())
@@ -81,7 +82,7 @@ func Read_Farm_File(file_path string, farm *farm.Farm) bool {
 			args := strings.Split(scanner.Text(), "-")
 			if !farm.AddTunnel(args[0], args[1], true) {
 				fmt.Println("Error in add tunnel")
-				return false
+				return false, ""
 			}
 			continue
 		}
@@ -102,5 +103,6 @@ func Read_Farm_File(file_path string, farm *farm.Farm) bool {
 		os.Exit(0)
 	}
 	farm.InitAnts(n_of_ants)
-	return true
+	data += "\n"
+	return true, data
 }

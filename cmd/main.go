@@ -16,7 +16,8 @@ func main() {
 	}
 	var farm ants.Farm
 	farm.InitFarm()
-	if !load_data.Read_Farm_File(args[0], &farm) {
+	read_err, data := load_data.Read_Farm_File(args[0], &farm)
+	if !read_err {
 		return
 	}
 	if !farm.Unique_Positions() {
@@ -25,6 +26,7 @@ func main() {
 	}
 	farm.InitDistances()
 	farm.AntBFS()
+	fmt.Println(data)
 	//for debugging
 	//farm.PrintFarm()
 	//farm.PrintDistances()
