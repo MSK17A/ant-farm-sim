@@ -5,7 +5,8 @@ import "fmt"
 /* Joins two rooms together */
 func (farm *Farm) AddTunnel(from_room string, to_room string, bi_direction bool) bool {
 	if farm.rooms[from_room] == nil || farm.rooms[to_room] == nil {
-		fmt.Println("One room or two wasn't found!")
+		//fmt.Println("One room or two wasn't found!")
+		fmt.Println("ERROR: invalid data format")
 		return false
 	}
 	if farm.rooms[from_room].Tunnel_Exists(farm.rooms[to_room]) {

@@ -34,13 +34,15 @@ func Read_Farm_File(file_path string, farm *farm.Farm) (bool, string) {
 		if line_number == 1 {
 			n_of_ants_line_fields := strings.Fields(scanner.Text())
 			if len(n_of_ants_line_fields) != 1 {
-				fmt.Println("Error in reading number of ants")
+				//fmt.Println("Error in reading number of ants")
+				fmt.Println("ERROR: invalid data format")
 				os.Exit(1)
 			}
 			n_of_ants, _ = strconv.Atoi(n_of_ants_line_fields[0])
 		}
 		if start_flag && end_flag {
-			fmt.Println("No start or end room")
+			//fmt.Println("No start or end room")
+			fmt.Println("ERROR: invalid data format")
 			os.Exit(1)
 		}
 		if scanner.Text() == "##start" {
@@ -81,7 +83,7 @@ func Read_Farm_File(file_path string, farm *farm.Farm) (bool, string) {
 		if strings.Contains(scanner.Text(), "-") && strings.Count(scanner.Text(), "-") == 1 {
 			args := strings.Split(scanner.Text(), "-")
 			if !farm.AddTunnel(args[0], args[1], true) {
-				fmt.Println("Error in add tunnel")
+				//fmt.Println("Error in add tunnel")
 				return false, ""
 			}
 			continue
