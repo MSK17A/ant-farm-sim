@@ -25,7 +25,8 @@ func main() {
 	}
 	farm.InitDistances()
 	farm.AntBFS()
-	farm.PrintFarm()
-	farm.PrintDistances()
+	//for debugging
+	//farm.PrintFarm()
+	//farm.PrintDistances()
 	farm.AntSim()
 }
