@@ -40,7 +40,7 @@ func (farm *Farm) AntBFS() {
 
 	}
 	if !discovered[farm.start_room] {
-		fmt.Println("ERROR: invalid data format - no tunnel connection between start and end")
+		fmt.Println("ERROR: invalid data format")
 		os.Exit(0)
 	}
 }
